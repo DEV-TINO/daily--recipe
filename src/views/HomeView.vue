@@ -14,6 +14,6 @@ const {count, doubleCount} = storeToRefs(useCounter)
     <button @click="increment()">Double!</button>
     {{ count }}
     {{ doubleCount }}
-    <h1>Hello, world!</h1>
+    <h1 class="text-lg text-red-600 font-bold w-40 h-40 bg-yellow-300">Hello, world!</h1>
   </div>
 </template>
