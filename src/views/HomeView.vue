@@ -1,19 +1,22 @@
-<script setup>
-import { useCounterStore } from '@/stores/counter';
-import { storeToRefs } from 'pinia';
-
-const useCounter = useCounterStore();
-
-const {increment} = useCounter
-const {count, doubleCount} = storeToRefs(useCounter)
-
+<script>
+import SwipeContainer from '@/components/SwipeContainer.vue';
+import ThreeContainerVue from '@/components/ThreeContainer.vue';
+export default{
+  components: {
+    RecentViewVue: SwipeContainer,
+    ThreeContainerVue: ThreeContainerVue,
+  }
+}
 </script>
 
 <template>
-  <div>
-    <button @click="increment()">Double!</button>
-    {{ count }}
-    {{ doubleCount }}
-    <h1 class="text-lg text-red-600 font-bold w-40 h-40 bg-yellow-300">Hello, world!</h1>
-  </div>
+  <h1>최근 본 레시피</h1>
+  <RecentViewVue/>
+  <h1>저장한 레시피</h1>
+  <ThreeContainerVue/>
+  <h1>등록한 레시피</h1>
+  <ThreeContainerVue/>
 </template>
+<style scoped>
+
+</style>
