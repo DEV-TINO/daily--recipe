@@ -1,0 +1,16 @@
+#container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+#lrgecontentview{
+    display: grid;
+    grid-template-columns: 180px 0fr;
+}
+#largethumbnail{
+    width: 180px;
+    height: 180px;
+}
+#minithumbnail{
+    width: 100px;
+    height: 100px;
+}
