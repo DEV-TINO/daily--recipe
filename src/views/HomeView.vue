@@ -10,13 +10,23 @@ export default{
 </script>
 
 <template>
-  <h1>최근 본 레시피</h1>
+  <div><h1>최근 본 레시피</h1></div>
   <RecentViewVue/>
-  <h1>저장한 레시피</h1>
+  <div id="threecontainertitle">
+    <h1>저장한 레시피</h1>
+    <router-link to="/resultlist">
+    <div id>더보기&gt;</div></router-link>
+  </div>
   <ThreeContainerVue/>
-  <h1>등록한 레시피</h1>
+  <div id="threecontainertitle">
+    <h1>등록한 레시피</h1> 
+    <router-link to="/resultlist"><div id>더보기&gt;</div></router-link>
+  </div>
   <ThreeContainerVue/>
 </template>
 <style scoped>
-
+#threecontainertitle{
+  display: grid;
+  grid-template-columns: 1fr 100px;
+}
 </style>
