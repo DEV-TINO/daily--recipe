@@ -2,9 +2,9 @@
 
     <div id="lrgecontentview">
       <div id="largethumbnail"></div>
-      <div id="contents">
-        <h2>title</h2>
-        <h3>discriptions</h3>
+      <div class="contents">
+        <div class="title">title</div>
+        <div class="discription">discriptions</div>
       </div>
     </div>
 </template>
@@ -17,11 +17,15 @@ export default {
 
 <style>
 #lrgecontentview{
+  margin-top: 10px;
     display: grid;
     grid-template-columns: 180px 0fr;
 }
 #largethumbnail{
     width: 180px;
     height: 180px;
+    border-radius: 10px;
+    background-color: #999999;
 }
+
 </style>

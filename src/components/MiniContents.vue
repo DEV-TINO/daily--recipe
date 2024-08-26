@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="allign">
       <div id="minithumbnail"></div>
-      <h2>title</h2>
-      <h3>discriptions</h3>
+      <div class="title">title</div>
+      <div class="discription">discriptions</div>
   </div>
 </template>
 
@@ -14,6 +14,8 @@ export default {
 
 <style>
 #minithumbnail{
+  border-radius: 10px;
+  background-color: #999;
     width: 100px;
     height: 100px;
 }

@@ -17,7 +17,9 @@ export default {
 
 <style>
 #container{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    margin-top: 10px;
+    width: 100%;
+    display: inline-flex;
+    justify-content: space-between;
 }
 </style>
