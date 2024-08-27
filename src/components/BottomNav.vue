@@ -2,8 +2,8 @@
   <div class="bottom-nav">
     <div class="menu" v-for="(value, key, index) in bottomMenu"
       :key="index"
-      @click="handleClickMenu(value)">
-      <img class="image" :src="`src/images/${value}.jpg`" />
+      @click="handleClickMenu(value.label)">
+      <img :class="activeIndex === value.label ? `clickedicon`:`icon`" :src="activeIndex === value.label ? value.activeIcon : value.inactiveIcon">
     </div>
   </div>
 </template>
@@ -12,11 +12,29 @@
 export default {
     data(){
         return{
-            bottomMenu:['edit','home','search']
+          activeIndex: 0,
+          bottomMenu:[
+            {
+              label:'edit',
+              activeIcon: 'src/images/editclicked.jpg',
+              inactiveIcon: 'src/images/edit.jpg',
+            },
+            {
+              label: 'home',
+              activeIcon: 'src/images/homeclicked.jpg',
+              inactiveIcon: 'src/images/home.jpg',
+            },
+            {
+              label:'search',
+              activeIcon: 'src/images/searchclicked.jpg',
+              inactiveIcon: 'src/images/search.jpg',
+            }
+          ],
         }
     },
     methods: {
       handleClickMenu(menu) {
+        this.activeIndex = menu;
         if (menu === "edit") {
           this.$router.push("/edit");
         } else if (menu === "home") {
@@ -41,7 +59,7 @@ export default {
         justify-content: center;
         align-items: center;
         box-shadow: 0px -2px 4px #ffc999;
-        gap: 50px;
+        gap: 70px;
         background-color: #fff;
     }
     .menu {
@@ -53,9 +71,13 @@ export default {
         justify-content: center;
     }
 
-    .image {
+    .icon {
         width: 70px;
         height: 50px;
+    }
+    .clickedicon{
+      width: 93px;
+      height: 71px;
     }
 
     

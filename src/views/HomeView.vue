@@ -16,7 +16,7 @@ export default{
     <div class="username">
       username
     </div>
-    <button>로그아웃</button>
+    <button class="logoutbutton">로그아웃</button>
   </div>
 </div>
   <div class="maincontainer">
@@ -27,8 +27,8 @@ export default{
   <div class="maincontainer">
     <div id="threecontainertitle">
       <div class="maintitle">저장한 레시피</div>
-      <router-link to="/resultlist">
-      <div id>더보기&gt;</div></router-link>
+      <router-link to="/resultlist" class="more">
+      <div>더보기  &gt;</div></router-link>
     </div>
     <ThreeContainerVue/>
   </div>
@@ -36,20 +36,18 @@ export default{
   <div class="maincontainer">
     <div id="threecontainertitle">
       <div class="maintitle">등록한 레시피</div> 
-      <router-link to="/resultlist"><div id>더보기&gt;</div></router-link>
+      <router-link to="/resultlist" class="more"><div>더보기  &gt;</div></router-link>
     </div>
     <ThreeContainerVue/>
   </div>
 </template>
 <style scoped>
 #threecontainertitle{
+  align-items: center;
   display: grid;
   grid-template-columns: 1fr 60px;
 }
-.maintitle{
-  font-size: 24px;
-  font-weight: bold;
-}
+
 .maincontainer{
   margin-top: 20px;
   margin-right: 30px;
@@ -75,5 +73,10 @@ export default{
 .image{
   width: 130px;
   height: 80px;
+}
+.more{
+  font-size: 14px;
+  color: #6D6767;
+  text-decoration-line: none;
 }
 </style>
