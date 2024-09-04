@@ -10,7 +10,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: HomeView,
     },
     {
       path: '/edit',
@@ -20,13 +20,25 @@ const router = createRouter({
     {
       path: '/search',
       name: 'search',
-      component: SearchView
+      component: SearchView,
     },
     {
-      path: '/resultlist',
-      name: 'resultlist',
-      component: ResultList
-
+      path: '/search/result',
+      name: 'result',
+      component: ResultList,
+      props: { mode: '검색결과' }
+    },
+    {
+      path: '/bookmarked',
+      name: 'bookmarked',
+      component: ResultList,
+      props: { mode: '저장한 레시피' },
+    },
+    {
+      path: '/posted',
+      name: 'posted',
+      component: ResultList,
+      props: { mode: '등록한 레시피' },
     },
   ]
 })

@@ -14,7 +14,7 @@
 export default {
   methods: {
     handleClickSearch() {
-      this.$router.push("/resultlist")
+      this.$router.push("/search/result")
     }
   }
 }

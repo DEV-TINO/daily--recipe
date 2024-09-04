@@ -17,7 +17,7 @@
   <div class="home-main-container">
     <div class="threecontainertitle">
       <div class="maintitle">저장한 레시피</div>
-      <router-link to="/resultlist" class="more">
+      <router-link to="/bookmarked" class="more">
         <div>더보기  &gt;</div>
       </router-link>
     </div>
@@ -27,7 +27,7 @@
   <div class="home-main-container">
     <div class="threecontainertitle">
       <div class="maintitle">등록한 레시피</div> 
-      <router-link to="/resultlist" class="more">
+      <router-link to="/posted" class="more">
         <div>더보기  &gt;</div>
       </router-link>
     </div>
