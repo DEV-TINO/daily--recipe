@@ -10,24 +10,24 @@
 
 <script>
 export default {
-    data(){
-      return{
+    data() {
+      return {
         activeIndex: 0,
-        bottomMenu:[
+        bottomMenu: [
           {
             label:'edit',
-            activeIcon: 'src/images/editclicked.jpg',
-            inactiveIcon: 'src/images/edit.jpg',
+            activeIcon: '/images/bottomnav/editclicked.jpg',
+            inactiveIcon: '/images/bottomnav/edit.jpg',
           },
           {
             label: 'home',
-            activeIcon: 'src/images/homeclicked.jpg',
-            inactiveIcon: 'src/images/home.jpg',
+            activeIcon: '/images/bottomnav/homeclicked.jpg',
+            inactiveIcon: '/images/bottomnav/home.jpg',
           },
           {
             label:'search',
-            activeIcon: 'src/images/searchclicked.jpg',
-            inactiveIcon: 'src/images/search.jpg',
+            activeIcon: '/images/bottomnav/searchclicked.jpg',
+            inactiveIcon: '/images/bottomnav/search.jpg',
           }
         ],
       }
@@ -38,7 +38,7 @@ export default {
         if (menu === "edit") {
           this.$router.push("/edit");
         } else if (menu === "home") {
-          this.$router.push("/home");
+          this.$router.push("/");
         } else if (menu === "search") {
           this.$router.push("/search");
         }
@@ -47,7 +47,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .bottom-nav {
   width: 100%;
   height: 80px;
@@ -70,15 +70,12 @@ export default {
   align-items: center;
   justify-content: center;
 }
-
 .bottom-nav-icon {
   width: 70px;
   height: 50px;
 }
-.bottom-nav-clicked-icon{
+.bottom-nav-clicked-icon {
   width: 93px;
-  height: 71px;
+  height: 72px;
 }
-
-    
 </style>

@@ -1,31 +1,15 @@
-#lrgecontentview{
-    display: grid;
-    grid-template-columns: 180px 0fr;
+.contents {
+  margin-left: 10px;
 }
-#largethumbnail{
-    width: 180px;
-    height: 180px;
+.title {
+  font-size: 20px;
+  font-weight: bold;
 }
-#minithumbnail{
-    width: 100px;
-    height: 100px;
+.discription {
+  font-size: 14px;
+  color: #777777;
 }
-.contents{
-    margin-left: 10px;
-  }
-  .title{
-    font-size: 20px;
-    font-weight: bold;
-  }
-  .discription{
-    font-size: 14px;
-    color: #777777;
-  }
-  .allign{
-    width: fit-content;
-    margin: 0 auto;
-  }
-  .maintitle{
-    font-size: 24px;
-    font-weight: bold;
-  }
+.maintitle {
+  font-size: 24px;
+  font-weight: bold;
+}

@@ -1,7 +1,7 @@
 <template>
-  <div class="topnavbar">
-    <div @click="backbutton()">&lt;</div>
-    <div>results</div>
+  <div class="top-nav-bar">
+    <div @click="handleClickBackToHome()">&lt;</div>
+    <div class="result-title">results</div>
     <div></div>
   </div>
   <MiddleContentsVue/>
@@ -18,26 +18,26 @@
 <script>
 import MiddleContentsVue from '@/components/MiddleContents.vue'
 export default {
-  methods:{
-    backbutton(){
-      this.$router.go(-1);
+  methods: {
+    handleClickBackToHome() {
+      this.$router.push("/");
     },
   },
-  components:{
+  components: {
     MiddleContentsVue: MiddleContentsVue,
   },
 }
 </script>
 
 <style>
-.topnavbar{
+.top-nav-bar {
   display: grid;
-  grid-template-columns: 1fr 200px 1fr;
-  align-items: center;
+  grid-template-columns: 17px 1fr 17px;
   font-size: 24px;
   font-weight: bold;
+  padding: 30px;
+}
+.result-title {
   text-align: center;
-  margin-top: 20px;
-  margin-bottom: 30px;
 }
 </style>

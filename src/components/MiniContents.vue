@@ -1,6 +1,6 @@
 <template>
-  <div class="allign">
-    <div id="minithumbnail"></div>
+  <div class="align">
+    <div class="mini-thumbnail"></div>
     <div class="title">title</div>
     <div class="discription">discriptions</div>
   </div>
@@ -13,7 +13,7 @@ export default {
 </script>
 
 <style>
-#minithumbnail{
+.mini-thumbnail {
   border-radius: 10px;
   background-color: #999;
   width: 100px;

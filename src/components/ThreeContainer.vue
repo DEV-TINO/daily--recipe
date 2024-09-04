@@ -1,5 +1,5 @@
 <template>
-  <div id="container">
+  <div class="three-container">
     <MiniContentsVue/>
     <MiniContentsVue/>
     <MiniContentsVue/>
@@ -16,7 +16,7 @@ export default {
 </script>
 
 <style>
-#container{
+.three-container {
   margin-top: 10px;
   width: 100%;
   display: inline-flex;

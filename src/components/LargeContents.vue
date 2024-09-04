@@ -1,6 +1,6 @@
 <template>
-  <div class="largecontentview">
-    <div class="largethumbnail"></div>
+  <div class="large-content-view">
+    <div class="large-thumbnail"></div>
     <div class="contents">
       <div class="title">title</div>
       <div class="discription">discriptions</div>
@@ -15,12 +15,12 @@ export default {
 </script>
 
 <style>
-.largecontentview{
+.large-content-view {
   margin-top: 10px;
   display: grid;
   grid-template-columns: 180px 0fr;
 }
-.largethumbnail{
+.large-thumbnail {
   width: 180px;
   height: 180px;
   border-radius: 10px;

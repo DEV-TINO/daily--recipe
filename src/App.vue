@@ -1,17 +1,16 @@
+<template>
+  <router-view></router-view>
+  <BottomNavVue/>
+</template>
+
 <script>
 import BottomNavVue from "./components/BottomNav.vue";
-export default{
-  components:{
+export default {
+  components: {
     BottomNavVue:BottomNavVue,
   },
 }
 </script>
-
-<template>
-
-  <router-view></router-view>
-  <BottomNavVue/>
-</template>
 
 <style>
 
