@@ -23,9 +23,9 @@ export default {
       this.$router.go(-1);
     },
   },
-    components:{
-        MiddleContentsVue: MiddleContentsVue,
-    },
+  components:{
+    MiddleContentsVue: MiddleContentsVue,
+  },
 }
 </script>
 

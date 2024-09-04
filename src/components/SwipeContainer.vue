@@ -1,5 +1,5 @@
 <template>
-    <LargeContentsVue/>
+  <LargeContentsVue/>
 </template>
 
 <script>
