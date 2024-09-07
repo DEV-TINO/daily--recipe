@@ -1,6 +1,6 @@
 <template>
   <div class="top-nav-bar">
-    <div @click="goToParentOrRoot()">&lt;</div>
+    <div @click="handleClickgoToParentOrRoot()">&lt;</div>
     <div class="result-title">{{mode}}</div>
     <div></div>
   </div>
@@ -14,6 +14,7 @@
   <MiddleContentsVue/>
   <MiddleContentsVue/>
   <MiddleContentsVue/>
+  <div class="margin-90px"></div>
 </template>
 
 <script>
@@ -27,7 +28,7 @@ export default {
       const parentPath = this.$route.path.split('/').slice(0, -1).join('/');
       this.$router.push(parentPath);
     },
-    goToParentOrRoot() {
+    handleClickgoToParentOrRoot() {
       const currentPath = this.$route.path;
       // 현재 경로를 '/'로 분할하고 마지막 경로를 제거
       const parentPath = currentPath.split('/').slice(0, -1).join('/');
