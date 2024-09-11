@@ -1,3 +1,15 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+.contents {
+  margin-left: 10px;
+}
+.title {
+  font-size: 20px;
+  font-weight: bold;
+}
+.discription {
+  font-size: 14px;
+  color: #777777;
+}
+.maintitle {
+  font-size: 24px;
+  font-weight: bold;
+}
