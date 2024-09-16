@@ -7,7 +7,7 @@
 import BottomNavVue from "./components/BottomNav.vue";
 export default {
   components: {
-    BottomNavVue:BottomNavVue,
+    BottomNavVue: BottomNavVue,
   },
 }
 </script>

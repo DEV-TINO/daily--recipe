@@ -10,13 +10,13 @@
   </div>
 
   <div class="home-main-container">
-    <div class="maintitle">최근 본 레시피</div>
+    <div class="main-title">최근 본 레시피</div>
     <RecentViewVue/>
   </div>
 
   <div class="home-main-container">
     <div class="threecontainertitle">
-      <div class="maintitle">저장한 레시피</div>
+      <div class="main-title">저장한 레시피</div>
       <router-link to="/bookmarked" class="more">
         <div>더보기  &gt;</div>
       </router-link>
@@ -26,7 +26,7 @@
 
   <div class="home-main-container">
     <div class="threecontainertitle">
-      <div class="maintitle">등록한 레시피</div> 
+      <div class="main-title">등록한 레시피</div> 
       <router-link to="/posted" class="more">
         <div>더보기  &gt;</div>
       </router-link>

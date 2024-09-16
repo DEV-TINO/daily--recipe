@@ -6,12 +6,36 @@
   </div>
   <div class="margin-90px"></div>
   <img :src="procedure_list[index].procedure_image" class="edit-procedure-bar">
-  <div>{{procedure_list[index].subtitle}}</div>
-  <div @click="handleClickNextStep()">
-    다음
+  <div class="edit-subtitle" v-html="procedure_list[index].subtitle"></div>
+
+  <div class="edit-editer">
+    <input class="edit-eidter-input" v-if="index == 0" type="text" :value="recipe.title" placeholder="ex) 간장계란밥">
+    <input class="edit-eidter-input" v-if="index == 1" type="text" :value="recipe.description" placeholder="ex) 누구나 쉽게 만들 수 있습니다.">
+    <div v-for="(item, count_ingredient) in recipe.ingredient" :key="count_ingredient">
+      <div v-if="index == 2">
+        <input class="edit-eidter-input" type="text" :value="item.name" placeholder="ex) 밥 or 계란 등 종류를 적어주세요."><br>
+        <input class="edit-eidter-input" type="text" :value="item.quantity" placeholder="ex) 1공기 or 1개 등 양을 적어주세요.">
+      </div>
+    </div>
+    <div v-for="(item, count_instruction) in recipe.instruction" :key="count_instruction">
+      <div v-if="index == 3">
+        <input class="edit-eidter-input" type="text" :value="item.imageUrl"><br>
+        <div>{{count_instruction+1}}. 무엇을 해야하나요?</div>
+        <input class="edit-eidter-input" type="text" :value="item.title" placeholder="ex) 양념용 간장 만들기"><br>
+        <div>어떻게 해야하나요?</div>
+        <input class="edit-eidter-input" type="text" :value="item.description" placeholder="ex) 쪽파 한 단을 잘게 다듬은 뒤, 간장 1큰스푼, 참기름 1스푼, 깨 1스푼을 넣고 섞어줍니다."><br>
+      </div>
+    </div>
+    <input class="edit-editer-input" v-if="index == 4" type="text" :value="recipe.thumbnail">
   </div>
-  <div @click="handleClickPrevStep()">
-    이전
+
+  <div class="edit-controler">
+    <div @click="handleClickPrevStep()">
+      이전
+    </div>
+    <div @click="handleClickNextStep()">
+      다음
+    </div>
   </div>
 </template>
 
@@ -23,13 +47,21 @@ export default {
       recipe: {
         user_id: '',
         thumbnail: '',
-        title: '',
-        description: '',
+        title: '간장계란밥',
+        description: '간단한 재료로 뚝딱뚝딱 간편 레시피로 만드는 초간단 맛있는 간장계란밥 비법공개',
         ingredient: [
+          {
+            name: '밥',
+            quantity: '1공기',
+          },
           {
             name: '',
             quantity: '',
-          }
+          },
+          {
+            name: '',
+            quantity: '',
+          },
         ],
         instruction: [
           {
@@ -79,14 +111,14 @@ export default {
           index: 4,
           label: 'thumbnail',
           title: '썸네일 등록하기',
-          subtitle: '완성된 요리 사진으로 썸네일을 등록해주세요.',
+          subtitle: '완성된 요리 사진으로<br/>썸네일을 등록해주세요.',
           procedure_image: '/images/procedure/thumbnail.png'
         },
         {
           index: 5,
           label: 'preview',
           title: '미리보기',
-          subtitle: '작성한 레시피는 다른사용자에게 이렇게 보여요.',
+          subtitle: '작성한 레시피는 <br/>다른사용자에게 이렇게 보여요.',
           procedure_image: '/images/procedure/preview.png'
         },
       ],
@@ -132,5 +164,29 @@ export default {
   width: 100%;
   box-sizing: border-box;
   padding: 30px;
+}
+.edit-subtitle {
+  box-sizing: border-box;
+  padding: 30px;
+  font-size: 24px;
+  font-weight: bold;
+  padding-top: 0px;
+}
+.edit-controler {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: fixed;
+  text-align: center;
+  bottom: 100px;
+}
+.edit-editer {
+  box-sizing: border-box;
+  padding: 30px;
+  padding-top: 0px;
+  width: 100%;
+}
+.edit-editer-input{
+  width: 100%;
 }
 </style>
