@@ -1,14 +1,18 @@
 <template>
   <div class="align">
     <div class="mini-thumbnail"></div>
-    <div class="title">title</div>
-    <div class="discription">discriptions</div>
+    <div class="title">{{ minicontents.title }}</div>
+    <div class="discription">{{ minicontents.discription }}</div>
   </div>
 </template>
 
 <script>
 export default {
-
+  name: 'MiniContents',
+  props: {
+    minicontents: Object,
+    
+  },
 }
 </script>
 

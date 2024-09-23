@@ -1,7 +1,7 @@
 <template>
   <div class="top-nav-bar">
-    <div @click="handleClickgoToParentOrRoot()">&lt;</div>
-    <div class="result-title">{{procedure_list[index].title}}</div>
+    <div @click="handleClickGoToParentOrRoot()">&lt;</div>
+    <div class="result-title">{{ procedure_list[index].title }}</div>
     <div></div>
   </div>
   <div class="margin-90px"></div>
@@ -9,24 +9,47 @@
   <div class="edit-subtitle" v-html="procedure_list[index].subtitle"></div>
 
   <div class="edit-editer">
-    <input class="edit-eidter-input" v-if="index == 0" type="text" :value="recipe.title" placeholder="ex) 간장계란밥">
-    <input class="edit-eidter-input" v-if="index == 1" type="text" :value="recipe.description" placeholder="ex) 누구나 쉽게 만들 수 있습니다.">
-    <div v-for="(item, count_ingredient) in recipe.ingredient" :key="count_ingredient">
-      <div v-if="index == 2">
-        <input class="edit-eidter-input" type="text" :value="item.name" placeholder="ex) 밥 or 계란 등 종류를 적어주세요."><br>
-        <input class="edit-eidter-input" type="text" :value="item.quantity" placeholder="ex) 1공기 or 1개 등 양을 적어주세요.">
+    <!-- 제목 넣기 -->
+    <input class="edit-editer-input" v-if="index == 0" type="text" v-model="recipe.title" placeholder="ex) 간장계란밥">
+    <!-- 설명 넣기 -->
+    <input class="edit-editer-input" v-if="index == 1" type="text" v-model="recipe.description" placeholder="ex) 누구나 쉽게 만들 수 있습니다.">
+    <!-- 재료 넣기 -->
+    <div v-if="index == 2">
+      <div v-for="(item, count_ingredient) in recipe.ingredient" :key="count_ingredient">
+        <input class="edit-editer-input" type="text" v-model="item.name" placeholder="ex) 밥 or 계란 등 종류를 적어주세요."><br>
+        <input class="edit-editer-input" type="text" v-model="item.quantity" placeholder="ex) 1공기 or 1개 등 양을 적어주세요.">
+        <button class="edit-button-delete" @click="handleClickDeleteIngredient(count_ingredient)">삭제하기</button>
       </div>
+      <button class="edit-button-add" @click="handleClickAddIngredient()">추가하기</button>
     </div>
-    <div v-for="(item, count_instruction) in recipe.instruction" :key="count_instruction">
-      <div v-if="index == 3">
-        <input class="edit-eidter-input" type="text" :value="item.imageUrl"><br>
-        <div>{{count_instruction+1}}. 무엇을 해야하나요?</div>
-        <input class="edit-eidter-input" type="text" :value="item.title" placeholder="ex) 양념용 간장 만들기"><br>
+    <!-- 레시피 넣기 -->
+    <div v-if="index == 3">
+      <div v-for="(item, count_instruction) in recipe.instruction" :key="count_instruction">
+        <input class="edit-editer-input" type="text" :value="item.imageUrl"><br>
+        <div>{{ count_instruction+1 }}. 무엇을 해야하나요?</div>
+        <input class="edit-editer-input" type="text" placeholder="ex) 양념용 간장 만들기" v-model="item.title"><br>
         <div>어떻게 해야하나요?</div>
-        <input class="edit-eidter-input" type="text" :value="item.description" placeholder="ex) 쪽파 한 단을 잘게 다듬은 뒤, 간장 1큰스푼, 참기름 1스푼, 깨 1스푼을 넣고 섞어줍니다."><br>
+        <input class="edit-editer-input" type="text" placeholder="ex) 쪽파 한 단을 잘게 다듬은 뒤, 간장 1큰스푼, 참기름 1스푼, 깨 1스푼을 넣고 섞어줍니다." v-model="item.description"><br>
+        <button class="edit-button-delete" @click="handleClickDeleteInstruction(count_instruction)">삭제하기</button>
+      </div>
+      <button class="edit-button-add" @click="handleClickAddInstruction()">추가하기</button>
+    </div>
+    <!-- 썸네일 넣기 -->
+    <input class="edit-editer-input" v-if="index == 4" type="text" :value="recipe.thumbnail">
+    <!-- 미리 보기 (컴포넌트로 구분 예정) -->
+    <div v-if="index == 5">
+      <div>{{ recipe.thumbnail }}</div>
+      <div>{{ recipe.title }}</div>
+      <div>{{ recipe.user_id }}</div>
+      <div>{{ recipe.description }}</div>
+      <div v-for="(value, key, index) in recipe.ingredient" :key="index">
+        {{ value.name }}{{ value.quantity }}
+      </div>
+      <div v-for="(value, index) in recipe.instruction" :key="index">
+        {{ value.title }} <br>
+        {{ value.description }}
       </div>
     </div>
-    <input class="edit-editer-input" v-if="index == 4" type="text" :value="recipe.thumbnail">
   </div>
 
   <div class="edit-controler">
@@ -47,17 +70,9 @@ export default {
       recipe: {
         user_id: '',
         thumbnail: '',
-        title: '간장계란밥',
-        description: '간단한 재료로 뚝딱뚝딱 간편 레시피로 만드는 초간단 맛있는 간장계란밥 비법공개',
+        title: '',
+        description: '',
         ingredient: [
-          {
-            name: '밥',
-            quantity: '1공기',
-          },
-          {
-            name: '',
-            quantity: '',
-          },
           {
             name: '',
             quantity: '',
@@ -74,10 +89,6 @@ export default {
       },
       //procedure 넘어갈 때 제어할 index변수.
       index: 0,
-      //ingredient 개수.
-      count_ingredient: 1,
-      //instruction 개수.
-      count_instruction: 1,
       procedure_list: [
         {
           index: 0,
@@ -126,8 +137,7 @@ export default {
   },
   methods: {
     handleClickNextStep() {
-      const nowIndex = this.index;
-      if (nowIndex >= 5) {
+      if (this.index >= 5) {
         this.index = 5;
       } else {
         this.index ++;
@@ -135,14 +145,13 @@ export default {
       //다음단계 함수.
     },
     handleClickPrevStep() {
-      const nowIndex = this.index;
-      if (nowIndex <= 0) {
+      if (this.index <= 0) {
         this.index = 0;
       } else {
         this.index--;
       }
     },
-    handleClickgoToParentOrRoot() {
+    handleClickGoToParentOrRoot() {
       const currentPath = this.$route.path;
       // 현재 경로를 '/'로 분할하고 마지막 경로를 제거
       const parentPath = currentPath.split('/').slice(0, -1).join('/');
@@ -155,6 +164,18 @@ export default {
         this.$router.push('/');
       }
     },
+    handleClickAddIngredient() {
+      this.recipe.ingredient.push({name: '',quantity: '',});
+    },
+    handleClickDeleteIngredient(index) {
+      this.recipe.ingredient.splice(index, index);
+    },
+    handleClickAddInstruction() {
+      this.recipe.instruction.push({title: '', imageUrl: '', description: '',})
+    },
+    handleClickDeleteInstruction(index) {
+      this.recipe.instruction.splice(index, index)
+    }
   },
 }
 </script>
@@ -188,5 +209,12 @@ export default {
 }
 .edit-editer-input{
   width: 100%;
+  box-sizing: border-box;
+}
+.edit-button-add {
+  color:orange;
+}
+.edit-button-delete {
+  color: red;
 }
 </style>

@@ -5,15 +5,7 @@
     <div></div>
   </div>
   <div class="margin-90px"></div>
-  <MiddleContentsVue/>
-  <MiddleContentsVue/>
-  <MiddleContentsVue/>
-  <MiddleContentsVue/>
-  <MiddleContentsVue/>
-  <MiddleContentsVue/>
-  <MiddleContentsVue/>
-  <MiddleContentsVue/>
-  <MiddleContentsVue/>
+  <MiddleContentsVue v-for="index in 9" :key="index"/>
   <div class="margin-90px"></div>
 </template>
 
