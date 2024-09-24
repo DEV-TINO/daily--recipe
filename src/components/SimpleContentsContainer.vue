@@ -1,15 +1,15 @@
 <template>
   <div class="three-container">
-    <MiniContentsVue v-for="(value, key, index) in minicontents" :key="index" :minicontents="minicontents[value.index]"/>
+    <SimpleContentsVue v-for="(value, key, index) in simplecontents" :key="index" :simplecontents="simplecontents[value.index]"/>
   </div>
 </template>
 
 <script>
-import MiniContentsVue from './MiniContents.vue'
+import SimpleContentsVue from './SimpleContents.vue'
 export default {
   data(){
     return {
-      minicontents: [
+      simplecontents: [
         {
           index: 0,
           title: "title1",
@@ -32,7 +32,7 @@ export default {
     }
   },
   components: {
-    MiniContentsVue: MiniContentsVue,
+    SimpleContentsVue: SimpleContentsVue,
   },
 }
 </script>

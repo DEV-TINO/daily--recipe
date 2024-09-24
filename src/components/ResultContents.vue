@@ -1,6 +1,6 @@
 <template>
   <div class="middle-contents">
-    <div class="mini-thumbnail"></div>
+    <div class="simple-thumbnail"></div>
     <div class="middle-info-container">
       <div class="date-name">
         <div class="date">yyyy-mm-dd</div>

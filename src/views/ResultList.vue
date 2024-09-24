@@ -5,12 +5,12 @@
     <div></div>
   </div>
   <div class="margin-90px"></div>
-  <MiddleContentsVue v-for="index in 9" :key="index"/>
+  <ResultContentsVue v-for="index in 9" :key="index"/>
   <div class="margin-90px"></div>
 </template>
 
 <script>
-import MiddleContentsVue from '@/components/MiddleContents.vue'
+import ResultContentsVue from '@/components/ResultContents.vue'
 export default {
   methods: {
     handleClickBackToHome() {
@@ -35,7 +35,7 @@ export default {
     },
   },
   components: {
-    MiddleContentsVue: MiddleContentsVue,
+    ResultContentsVue: ResultContentsVue,
   },
   props: {
     mode: {

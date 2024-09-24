@@ -21,7 +21,7 @@
         <div>더보기  &gt;</div>
       </router-link>
     </div>
-    <ThreeContainerVue/>
+    <SimpleContentsContainerVue/>
   </div>
 
   <div class="home-main-container">
@@ -31,17 +31,17 @@
         <div>더보기  &gt;</div>
       </router-link>
     </div>
-    <ThreeContainerVue/>
+    <SimpleContentsContainerVue/>
   </div>
 </template>
 
 <script>
-  import SwipeContainer from '@/components/SwipeContainer.vue';
-  import ThreeContainerVue from '@/components/ThreeContainer.vue';
+  import SwipeContainer from '@/components/SwipeContentsContainer.vue';
+import SimpleContentsContainer from '@/components/SimpleContentsContainer.vue';
   export default {
     components: {
       RecentViewVue: SwipeContainer,
-      ThreeContainerVue: ThreeContainerVue,
+      SimpleContentsContainerVue: SimpleContentsContainer,
     }
   }
 </script>
