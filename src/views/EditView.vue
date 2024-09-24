@@ -12,7 +12,9 @@
     <!-- 제목 넣기 -->
     <input class="edit-editer-input" v-if="index == 0" type="text" v-model="recipe.title" placeholder="ex) 간장계란밥">
     <!-- 설명 넣기 -->
+
     <input class="edit-editer-input" v-if="index == 1" type="text" v-model="recipe.description" placeholder="ex) 누구나 쉽게 만들 수 있습니다.">
+
     <!-- 재료 넣기 -->
     <div v-if="index == 2">
       <div v-for="(item, count_ingredient) in recipe.ingredient" :key="count_ingredient">
@@ -22,6 +24,7 @@
       </div>
       <button class="edit-button-add" @click="handleClickAddIngredient()">추가하기</button>
     </div>
+
     <!-- 레시피 넣기 -->
     <div v-if="index == 3">
       <div v-for="(item, count_instruction) in recipe.instruction" :key="count_instruction">
@@ -34,29 +37,34 @@
       </div>
       <button class="edit-button-add" @click="handleClickAddInstruction()">추가하기</button>
     </div>
+
     <!-- 썸네일 넣기 -->
     <input class="edit-editer-input" v-if="index == 4" type="text" :value="recipe.thumbnail">
+
     <!-- 미리 보기 (컴포넌트로 구분 예정) -->
-    <div v-if="index == 5">
+    <div class="recipe-container" v-if="index == 5">
       <div>{{ recipe.thumbnail }}</div>
-      <div>{{ recipe.title }}</div>
-      <div>{{ recipe.user_id }}</div>
-      <div>{{ recipe.description }}</div>
-      <div v-for="(value, key, index) in recipe.ingredient" :key="index">
-        {{ value.name }}{{ value.quantity }}
+      <div class="recipe-main-title">{{ recipe.title }}</div>
+      <div class="recipe-description">{{ recipe.description }}</div>
+      <div class="recipe-metadata">{{ recipe.user_id }} • {{ recipe.created_at }}</div>
+      <div class="recipe-instruction-title">재료</div>
+      <div class="recipe-ingredient" v-for="(value, key, index) in recipe.ingredient" :key="index">
+        <div class="recipe-ingredient-value">{{ value.name }}</div>
+        <div class="recipe-ingredient-value">{{ value.quantity }}</div>
       </div>
       <div v-for="(value, index) in recipe.instruction" :key="index">
-        {{ value.title }} <br>
-        {{ value.description }}
+        <div class="recipe-instruction-title">{{ index + 1 }}. {{ value.title }}</div>
+        <div class="recipe-description">{{ value.description }}</div>
       </div>
     </div>
   </div>
+  <div class="margin-90px"></div>
 
   <div class="edit-controler">
-    <div @click="handleClickPrevStep()">
+    <div class="edit-controler-button" @click="handleClickPrevStep()">
       이전
     </div>
-    <div @click="handleClickNextStep()">
+    <div class="edit-controler-button" @click="handleClickNextStep()">
       다음
     </div>
   </div>
@@ -68,7 +76,7 @@ export default {
     return {
       //레시피 object화
       recipe: {
-        user_id: '',
+        user_id: 'shushu',
         thumbnail: '',
         title: '',
         description: '',
@@ -85,7 +93,7 @@ export default {
             description: '',
           },
         ],
-        created_at: '',
+        created_at: '2024-09-25',
       },
       //procedure 넘어갈 때 제어할 index변수.
       index: 0,
@@ -195,11 +203,28 @@ export default {
 }
 .edit-controler {
   width: 100%;
+  box-sizing: border-box;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  gap: 20px;
   position: fixed;
   text-align: center;
+  padding-left: 30px;
+  padding-right: 30px;
+  left: 0;
   bottom: 100px;
+}
+.edit-controler-button{
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+  align-content: center;
+  border: 1px solid orange;
+  background: white;
+  border-radius: 10px;
+  color: orange;
+  font-size: 24px;
+  font-weight: 600;
 }
 .edit-editer {
   box-sizing: border-box;
@@ -216,5 +241,39 @@ export default {
 }
 .edit-button-delete {
   color: red;
+}
+.recipe-container {
+  width: 100%;
+  box-sizing: border-box;
+}
+.recipe-main-title {
+  font-size: 40px;
+  font-weight: bold;
+}
+.recipe-description {
+  margin-top: 20px;
+  font-size: 18px;
+}
+.recipe-metadata {
+  margin-top: 10px;
+  font-size: 15px;
+  font-weight: 100;
+}
+.recipe-ingredient {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 20px;
+  border-bottom: solid 1px orange;
+  margin-bottom: 5px;
+  padding-bottom: 2px;
+  padding-left: 2px;
+  width: 100%;
+  font-size: 15px;
+}
+.recipe-instruction-title {
+  margin-top: 40px;
+  margin-bottom: 10px;
+  font-size: 28px;
+  font-weight: bold;
 }
 </style>
