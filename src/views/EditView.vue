@@ -10,17 +10,50 @@
 
   <div class="edit-editer">
     <!-- 제목 넣기 -->
-    <input class="edit-editer-input" v-if="index == 0" type="text" v-model="recipe.title" placeholder="ex) 간장계란밥">
+    <div class="editer-container" v-if="index == 0">
+      <textarea 
+        class="edit-editer-title"  
+        type="text" 
+        v-model="recipe.title" 
+        placeholder="ex) 간장계란밥" 
+        maxlength="20"
+      ></textarea>
+      <span class="edit-text-counter">{{ recipe.title.length }}/20</span>
+    </div>
+
     <!-- 설명 넣기 -->
 
-    <input class="edit-editer-input" v-if="index == 1" type="text" v-model="recipe.description" placeholder="ex) 누구나 쉽게 만들 수 있습니다.">
+    <div class="editer-container" v-if="index == 1">
+      <textarea 
+        class="edit-editer-title"  
+        type="text" 
+        v-model="recipe.description" 
+        placeholder="ex) 누구나 쉽게 만들 수 있습니다." 
+        maxlength="50"
+        style="height: 108px"
+      ></textarea>
+      <span class="edit-text-counter">{{ recipe.description.length }}/50</span>
+    </div>
 
     <!-- 재료 넣기 -->
     <div v-if="index == 2">
       <div v-for="(item, count_ingredient) in recipe.ingredient" :key="count_ingredient">
-        <input class="edit-editer-input" type="text" v-model="item.name" placeholder="ex) 밥 or 계란 등 종류를 적어주세요."><br>
-        <input class="edit-editer-input" type="text" v-model="item.quantity" placeholder="ex) 1공기 or 1개 등 양을 적어주세요.">
-        <button class="edit-button-delete" @click="handleClickDeleteIngredient(count_ingredient)">삭제하기</button>
+        <input 
+          class="edit-editer-input" 
+          type="text" 
+          v-model="item.name" 
+          placeholder="ex) 밥 or 계란 등 종류를 적어주세요."
+        ><br>
+        <input 
+          class="edit-editer-input" 
+          type="text" 
+          v-model="item.quantity" 
+          placeholder="ex) 1공기 or 1개 등 양을 적어주세요."
+        >
+        <button 
+          class="edit-button-delete" 
+          @click="handleClickDeleteIngredient(count_ingredient)"
+        >삭제하기</button>
       </div>
       <button class="edit-button-add" @click="handleClickAddIngredient()">추가하기</button>
     </div>
@@ -176,13 +209,13 @@ export default {
       this.recipe.ingredient.push({name: '',quantity: '',});
     },
     handleClickDeleteIngredient(index) {
-      this.recipe.ingredient.splice(index, index);
+      this.recipe.ingredient.splice(index, 1);
     },
     handleClickAddInstruction() {
       this.recipe.instruction.push({title: '', imageUrl: '', description: '',})
     },
     handleClickDeleteInstruction(index) {
-      this.recipe.instruction.splice(index, index)
+      this.recipe.instruction.splice(index, 1)
     }
   },
 }
@@ -232,14 +265,53 @@ export default {
   padding-top: 0px;
   width: 100%;
 }
+.editer-container{
+  position: relative;
+}
+.edit-text-counter{
+  color: #ccc;
+  position: absolute;
+  bottom: 22px;
+  right: 10px;
+}
+.edit-editer-title {
+  width: 100%;
+  overflow: hidden;
+  padding-bottom: 10px;
+  font-size: 18px;
+  background-color: white;
+  background-image: linear-gradient(to bottom, transparent 95%, #ccc 96%);
+  background-size: 100% 2em;
+  background-repeat: repeat-y;
+  line-height: 2em;
+  border: 0;
+}
+.edit-editer-title:focus {
+  outline: none;
+  background-image: linear-gradient(to bottom, transparent 95%, orange 96%);
+}
 .edit-editer-input{
   width: 100%;
   box-sizing: border-box;
 }
 .edit-button-add {
+  padding: 5px 20px 5px 20px;
+  border-radius: 10px;
+  border: solid 1.5px orange;
+  background: white;
+  font-size: 18px;
+  font-weight: bold;
+  position: absolute;
   color:orange;
 }
 .edit-button-delete {
+  padding: 5px 20px 5px 20px;
+  border-radius: 10px;
+  margin: 0 auto;
+  border: solid 1.5px red;
+  background: white;
+  font-size: 18px;
+  font-weight: bold;
   color: red;
 }
 .recipe-container {
