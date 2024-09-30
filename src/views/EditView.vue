@@ -61,7 +61,16 @@
     <!-- 레시피 넣기 -->
     <div v-if="index == 3">
       <div v-for="(item, count_instruction) in recipe.instruction" :key="count_instruction">
-        <input class="edit-editer-input" type="text" :value="item.imageUrl"><br>
+        <label :for="'input-'+count_instruction">
+          <div class="edit-image-input" v-if="item.imageUrl == 0">
+            <img src="/images/43icon.png" style="width:100px; height: 100px;">
+            <div>Upload 4:3 image</div>
+          </div>
+        </label>
+        <input style="display: none;" :id="'input-'+count_instruction" @change="handleUploadFile(count_instruction)" type="file"/><br>
+        <div v-if="item.imageUrl" style="width: 100%; aspect-ratio: auto 4/3;  object-position: center;">
+          <img :src="item.imageUrl"  style="object-fit: cover; height: 100%; width: 100%;border-radius:10px;">
+        </div>
         <div>{{ count_instruction+1 }}. 무엇을 해야하나요?</div>
         <input class="edit-editer-input" type="text" placeholder="ex) 양념용 간장 만들기" v-model="item.title"><br>
         <div>어떻게 해야하나요?</div>
@@ -72,14 +81,27 @@
     </div>
 
     <!-- 썸네일 넣기 -->
-    <input class="edit-editer-input" v-if="index == 4" type="text" :value="recipe.thumbnail">
+    <div v-if="index == 4">
+      <label :for="'input-thumbnail'">
+        <div class="edit-thumbnail-input" v-if="recipe.thumbnail == 0">
+          <img src="/images/11icon.png" style="width:100px; height: 100px;">
+          <div>Upload 1:1 image</div>
+        </div>
+      </label>
+      <input style="display: none;" :id="'input-thumbnail'" @change="handleUploadThumbnail()" type="file"/><br>
+      <div v-if="recipe.thumbnail" style="width: 100%; aspect-ratio: auto 1/1;  object-position: center;">
+        <img :src="recipe.thumbnail" style="object-fit: cover; height: 100%; width: 100%;border-radius:10px;">
+      </div>
+    </div>
 
     <!-- 미리 보기 (컴포넌트로 구분 예정) -->
     <div class="recipe-container" v-if="index == 5">
-      <div>{{ recipe.thumbnail }}</div>
       <div class="recipe-main-title">{{ recipe.title }}</div>
       <div class="recipe-description">{{ recipe.description }}</div>
       <div class="recipe-metadata">{{ recipe.user_id }} • {{ recipe.created_at }}</div>
+      <div v-if="recipe.thumbnail" style="width: 100%; aspect-ratio: auto 1/1; object-position: center;">
+        <img :src="recipe.thumbnail" style="object-fit: cover; height: 100%; width: 100%;border-radius:10px;">
+      </div>
       <div class="recipe-instruction-title">재료</div>
       <div class="recipe-ingredient" v-for="(value, key, index) in recipe.ingredient" :key="index">
         <div class="recipe-ingredient-value">{{ value.name }}</div>
@@ -87,6 +109,7 @@
       </div>
       <div v-for="(value, index) in recipe.instruction" :key="index">
         <div class="recipe-instruction-title">{{ index + 1 }}. {{ value.title }}</div>
+        <img :src="value.imageUrl" style="width: 100%; height: 75%" v-if="value.imageUrl">
         <div class="recipe-description">{{ value.description }}</div>
       </div>
     </div>
@@ -94,11 +117,11 @@
   <div class="margin-90px"></div>
 
   <div class="edit-controler">
-    <div class="edit-controler-button" @click="handleClickPrevStep()">
-      이전
+    <div v-if="index != 0" class="edit-controler-button" @click="handleClickPrevStep()" style="left: 5px">
+      &lt;
     </div>
-    <div class="edit-controler-button" @click="handleClickNextStep()">
-      다음
+    <div v-if="index != 5" class="edit-controler-button" @click="handleClickNextStep()" style="right: 5px">
+      &gt;
     </div>
   </div>
 </template>
@@ -196,7 +219,6 @@ export default {
       const currentPath = this.$route.path;
       // 현재 경로를 '/'로 분할하고 마지막 경로를 제거
       const parentPath = currentPath.split('/').slice(0, -1).join('/');
-      
       if (parentPath) {
         // 상위 경로로 이동
         this.$router.push(parentPath);
@@ -216,6 +238,18 @@ export default {
     },
     handleClickDeleteInstruction(index) {
       this.recipe.instruction.splice(index, 1)
+    },
+    handleUploadFile(index) {
+      const file = event.target.files[0];
+      if (file) {
+        this.recipe.instruction[index].imageUrl = URL.createObjectURL(file);
+      }
+    },
+    handleUploadThumbnail() {
+      const file = event.target.files[0];
+      if (file) {
+        this.recipe.thumbnail = URL.createObjectURL(file)
+      }
     }
   },
 }
@@ -237,33 +271,53 @@ export default {
 .edit-controler {
   width: 100%;
   box-sizing: border-box;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  display: flex;
   position: fixed;
   text-align: center;
-  padding-left: 30px;
-  padding-right: 30px;
   left: 0;
-  bottom: 100px;
+  top: 50%;
 }
 .edit-controler-button{
   box-sizing: border-box;
-  width: 100%;
-  padding: 10px;
+  width: 35px;
+  height: 100px;
+  position: absolute;
   align-content: center;
   border: 1px solid orange;
   background: white;
   border-radius: 10px;
   color: orange;
   font-size: 24px;
-  font-weight: 600;
+  font-weight: 100;
 }
 .edit-editer {
   box-sizing: border-box;
   padding: 30px;
   padding-top: 0px;
   width: 100%;
+}
+.edit-image-input{
+  width: 100%;
+  aspect-ratio: 4/3;
+  background: #ccc;
+  border-radius: 10px;
+  font-weight: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.edit-thumbnail-input {
+  width: 100%;
+  background: #ccc;
+  aspect-ratio: 1/1;
+  border-radius: 10px;
+  font-weight: 100;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+
 }
 .editer-container{
   position: relative;
@@ -273,6 +327,7 @@ export default {
   position: absolute;
   bottom: 22px;
   right: 10px;
+  font-weight: 100;
 }
 .edit-editer-title {
   width: 100%;
@@ -284,7 +339,7 @@ export default {
   background-size: 100% 2em;
   background-repeat: repeat-y;
   line-height: 2em;
-  border: 0;
+  border: none;
 }
 .edit-editer-title:focus {
   outline: none;
@@ -293,6 +348,20 @@ export default {
 .edit-editer-input{
   width: 100%;
   box-sizing: border-box;
+  border: none;
+  font-size: 18px;
+  border-bottom: solid 2px #ccc;
+  padding: 0px 0px 5px 5px;
+  margin-bottom: 10px;
+}
+.edit-editer-input:focus{
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+  font-size: 18px;
+  border-bottom: solid 2px orange;
+  padding: 0px 0px 5px 5px;
+  margin-bottom: 10px;
 }
 .edit-button-add {
   padding: 5px 20px 5px 20px;
@@ -302,12 +371,15 @@ export default {
   font-size: 18px;
   font-weight: bold;
   position: absolute;
+  left: 50%;
   color:orange;
+  transform: translate(-50%, 0%);
 }
 .edit-button-delete {
   padding: 5px 20px 5px 20px;
   border-radius: 10px;
   margin: 0 auto;
+  margin-bottom: 10px;
   border: solid 1.5px red;
   background: white;
   font-size: 18px;
