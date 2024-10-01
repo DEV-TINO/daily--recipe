@@ -16,23 +16,22 @@
         type="text" 
         v-model="recipe.title" 
         placeholder="ex) 간장계란밥" 
-        maxlength="20"
+        maxlength="30"
       ></textarea>
-      <span class="edit-text-counter">{{ recipe.title.length }}/20</span>
+      <span class="edit-text-counter">{{ recipe.title.length }}/30</span>
     </div>
 
     <!-- 설명 넣기 -->
-
     <div class="editer-container" v-if="index == 1">
       <textarea 
         class="edit-editer-title"  
         type="text" 
         v-model="recipe.description" 
         placeholder="ex) 누구나 쉽게 만들 수 있습니다." 
-        maxlength="50"
+        maxlength="60"
         style="height: 108px"
       ></textarea>
-      <span class="edit-text-counter">{{ recipe.description.length }}/50</span>
+      <span class="edit-text-counter">{{ recipe.description.length }}/60</span>
     </div>
 
     <!-- 재료 넣기 -->
@@ -43,12 +42,14 @@
           type="text" 
           v-model="item.name" 
           placeholder="ex) 밥 or 계란 등 종류를 적어주세요."
+          maxlength="15"
         ><br>
         <input 
           class="edit-editer-input" 
           type="text" 
           v-model="item.quantity" 
           placeholder="ex) 1공기 or 1개 등 양을 적어주세요."
+          maxlength="15"
         >
         <button 
           class="edit-button-delete" 
@@ -60,21 +61,45 @@
 
     <!-- 레시피 넣기 -->
     <div v-if="index == 3">
-      <div v-for="(item, count_instruction) in recipe.instruction" :key="count_instruction">
-        <label :for="'input-'+count_instruction">
+      <div v-for="(item, count_instruction) in recipe.instruction" :key="count_instruction" style="margin-bottom: 15px;">
+        <label :for="'image-input-'+count_instruction">
           <div class="edit-image-input" v-if="item.imageUrl == 0">
-            <img src="/images/43icon.png" style="width:100px; height: 100px;">
-            <div>Upload 4:3 image</div>
+            <img src="/images/43icon.png" style="width:50px; height: 50px;">
+            <div>Upload Image</div>
           </div>
         </label>
-        <input style="display: none;" :id="'input-'+count_instruction" @change="handleUploadFile(count_instruction)" type="file"/><br>
-        <div v-if="item.imageUrl" style="width: 100%; aspect-ratio: auto 4/3;  object-position: center;">
-          <img :src="item.imageUrl"  style="object-fit: cover; height: 100%; width: 100%;border-radius:10px;">
+        <input 
+          style="display: none;" 
+          :id="'image-input-'+count_instruction" 
+          @change="handleUploadFile(count_instruction)" 
+          type="file"
+        />
+        <div v-if="item.imageUrl" style="width: 100%; height: 100%; aspect-ratio: auto 4/3;  object-position: center;">
+          <img :src="item.imageUrl"  style="object-fit: cover; height: 100%; width: 100%; border-radius:10px;" @click="handleClickRemoveImage(count_instruction)">
         </div>
-        <div>{{ count_instruction+1 }}. 무엇을 해야하나요?</div>
-        <input class="edit-editer-input" type="text" placeholder="ex) 양념용 간장 만들기" v-model="item.title"><br>
-        <div>어떻게 해야하나요?</div>
-        <input class="edit-editer-input" type="text" placeholder="ex) 쪽파 한 단을 잘게 다듬은 뒤, 간장 1큰스푼, 참기름 1스푼, 깨 1스푼을 넣고 섞어줍니다." v-model="item.description"><br>
+        <div style="margin-top: 10px; margin-bottom: -20px;">
+          <div style="font-size: 20px; margin-bottom: 10px; font-weight: 600;">{{ count_instruction+1 }}. 무엇을 해야하나요?</div>
+          <textarea 
+            class="edit-editer-title" 
+            type="text" 
+            placeholder="ex) 양념용 간장 만들기"
+            v-model="item.title"
+            maxlength="20"
+          ></textarea>
+          <span class="edit-text-counter" style="position: relative; bottom: 43px; left: 90%;">{{ item.title.length }}/20</span>
+        </div>
+        <div style="margin-bottom: -20px;">
+          <div style="font-size: 20px; margin-bottom: 10px; font-weight: 600;">어떻게 해야하나요?</div>
+          <textarea
+            class="edit-editer-title" 
+            type="text" 
+            placeholder="ex) 쪽파 한 단을 잘게 다듬은 뒤, 간장 1큰스푼, 참기름 1스푼, 깨 1스푼을 넣고 섞어줍니다." 
+            v-model="item.description"
+            maxlength="60"
+            style="height: 108px;"
+          ></textarea>
+          <span class="edit-text-counter" style="position: relative; bottom: 43px; left: 90%;">{{ item.description.length }}/60</span>
+        </div>
         <button class="edit-button-delete" @click="handleClickDeleteInstruction(count_instruction)">삭제하기</button>
       </div>
       <button class="edit-button-add" @click="handleClickAddInstruction()">추가하기</button>
@@ -82,15 +107,15 @@
 
     <!-- 썸네일 넣기 -->
     <div v-if="index == 4">
-      <label :for="'input-thumbnail'">
-        <div class="edit-thumbnail-input" v-if="recipe.thumbnail == 0">
-          <img src="/images/11icon.png" style="width:100px; height: 100px;">
-          <div>Upload 1:1 image</div>
+      <label :for="'input-thumbnail'"  v-if="recipe.thumbnail == 0">
+        <div class="edit-thumbnail-input">
+          <img src="/images/11icon.png" style="width:50px; height: 50px;">
+          <div>Upload Image</div>
         </div>
       </label>
-      <input style="display: none;" :id="'input-thumbnail'" @change="handleUploadThumbnail()" type="file"/><br>
+      <input style="display: none;" :id="'input-thumbnail'" @change="handleUploadThumbnail()" type="file"/>
       <div v-if="recipe.thumbnail" style="width: 100%; aspect-ratio: auto 1/1;  object-position: center;">
-        <img :src="recipe.thumbnail" style="object-fit: cover; height: 100%; width: 100%;border-radius:10px;">
+        <img :src="recipe.thumbnail" style="object-fit: cover; height: 100%; width: 100%; border-radius:10px;" @click="handleClickRemoveThumbnail()">
       </div>
     </div>
 
@@ -99,22 +124,24 @@
       <div class="recipe-main-title">{{ recipe.title }}</div>
       <div class="recipe-description">{{ recipe.description }}</div>
       <div class="recipe-metadata">{{ recipe.user_id }} • {{ recipe.created_at }}</div>
-      <div v-if="recipe.thumbnail" style="width: 100%; aspect-ratio: auto 1/1; object-position: center;">
+      <div v-if="recipe.thumbnail" style="width: 100%; aspect-ratio: auto 1/1; object-position: center; margin-top: 30px;">
         <img :src="recipe.thumbnail" style="object-fit: cover; height: 100%; width: 100%;border-radius:10px;">
       </div>
       <div class="recipe-instruction-title">재료</div>
-      <div class="recipe-ingredient" v-for="(value, key, index) in recipe.ingredient" :key="index">
+      <div class="recipe-ingredient" v-for="(value, index) in recipe.ingredient" :key="index">
         <div class="recipe-ingredient-value">{{ value.name }}</div>
         <div class="recipe-ingredient-value">{{ value.quantity }}</div>
       </div>
       <div v-for="(value, index) in recipe.instruction" :key="index">
         <div class="recipe-instruction-title">{{ index + 1 }}. {{ value.title }}</div>
-        <img :src="value.imageUrl" style="width: 100%; height: 75%" v-if="value.imageUrl">
+        <div v-if="value.imageUrl" style="width: 100%; height: 100%; aspect-ratio: auto 4/3;  object-position: center;">
+          <img :src="value.imageUrl"  style="object-fit: cover; height: 100%; width: 100%; border-radius:10px;">
+        </div>
         <div class="recipe-description">{{ value.description }}</div>
       </div>
     </div>
   </div>
-  <div class="margin-90px"></div>
+  <div style="margin-bottom: 110px;"></div>
 
   <div class="edit-controler">
     <div v-if="index != 0" class="edit-controler-button" @click="handleClickPrevStep()" style="left: 5px">
@@ -250,6 +277,12 @@ export default {
       if (file) {
         this.recipe.thumbnail = URL.createObjectURL(file)
       }
+    },
+    handleClickRemoveImage(index) {
+      this.recipe.instruction[index].imageUrl = '';
+    },
+    handleClickRemoveThumbnail() {
+      this.recipe.thumbnail = '';
     }
   },
 }
@@ -325,7 +358,7 @@ export default {
 .edit-text-counter{
   color: #ccc;
   position: absolute;
-  bottom: 22px;
+  bottom: 20px;
   right: 10px;
   font-weight: 100;
 }
@@ -371,6 +404,7 @@ export default {
   font-size: 18px;
   font-weight: bold;
   position: absolute;
+  margin-top: 10px;
   left: 50%;
   color:orange;
   transform: translate(-50%, 0%);
@@ -380,6 +414,9 @@ export default {
   border-radius: 10px;
   margin: 0 auto;
   margin-bottom: 10px;
+  position: relative;
+  left: 100%;
+  transform: translate(-100%, 0);
   border: solid 1.5px red;
   background: white;
   font-size: 18px;

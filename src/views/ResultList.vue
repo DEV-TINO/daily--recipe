@@ -54,6 +54,7 @@ export default {
   box-sizing: border-box;
   left: 0;
   position: fixed;
+  z-index: 100;
   display: grid;
   grid-template-columns: 17px 1fr 17px;
   font-size: 24px;
