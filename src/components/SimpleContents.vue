@@ -11,7 +11,6 @@ export default {
   name: 'SimpleContents',
   props: {
     simplecontents: Object,
-    
   },
 }
 </script>

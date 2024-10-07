@@ -13,7 +13,7 @@ export default {
 </script>
 
 <style>
-*{
+* {
   font-family: "Pretendard-Regular.ttf" !important;
 }
 </style>
