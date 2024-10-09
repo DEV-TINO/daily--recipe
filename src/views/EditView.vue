@@ -119,27 +119,8 @@
       </div>
     </div>
 
-    <!-- 미리 보기 (컴포넌트로 구분 예정) -->
-    <div class="recipe-container" v-if="index == 5">
-      <div class="recipe-main-title">{{ recipe.title }}</div>
-      <div class="recipe-description">{{ recipe.description }}</div>
-      <div class="recipe-metadata">{{ recipe.user_id }} • {{ recipe.created_at }}</div>
-      <div v-if="recipe.thumbnail" style="width: 100%; aspect-ratio: auto 1/1; object-position: center; margin-top: 30px;">
-        <img :src="recipe.thumbnail" style="object-fit: cover; height: 100%; width: 100%;border-radius:10px;">
-      </div>
-      <div class="recipe-instruction-title">재료</div>
-      <div class="recipe-ingredient" v-for="(value, index) in recipe.ingredient" :key="index">
-        <div class="recipe-ingredient-value">{{ value.name }}</div>
-        <div class="recipe-ingredient-value">{{ value.quantity }}</div>
-      </div>
-      <div v-for="(value, index) in recipe.instruction" :key="index">
-        <div class="recipe-instruction-title">{{ index + 1 }}. {{ value.title }}</div>
-        <div v-if="value.imageUrl" style="width: 100%; height: 100%; aspect-ratio: auto 4/3;  object-position: center;">
-          <img :src="value.imageUrl"  style="object-fit: cover; height: 100%; width: 100%; border-radius:10px;">
-        </div>
-        <div class="recipe-description">{{ value.description }}</div>
-      </div>
-    </div>
+    <!-- 미리 보기 -->
+    <FullRecipeContainerVue v-if="index == 5" :recipe="recipe"/>
   </div>
   <div style="margin-bottom: 110px;"></div>
 
@@ -154,7 +135,11 @@
 </template>
 
 <script>
+import FullRecipeContainerVue from '@/components/FullRecipeContainer.vue';
 export default {
+  components: {
+    FullRecipeContainerVue: FullRecipeContainerVue
+  },
   data() {
     return {
       //레시피 object화
@@ -331,7 +316,6 @@ export default {
 }
 .edit-image-input{
   width: 100%;
-  aspect-ratio: 4/3;
   background: #ccc;
   border-radius: 10px;
   font-weight: 100;
@@ -339,18 +323,18 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  aspect-ratio: 4/3;
 }
 .edit-thumbnail-input {
   width: 100%;
   background: #ccc;
-  aspect-ratio: 1/1;
   border-radius: 10px;
   font-weight: 100;
   display: flex;
-  align-items: center;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
-
+  aspect-ratio: 1/1;
 }
 .editer-container{
   position: relative;
