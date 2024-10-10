@@ -37,7 +37,7 @@
 
 <script>
   import SwipeContainer from '@/components/SwipeContentsContainer.vue';
-import SimpleContentsContainer from '@/components/SimpleContentsContainer.vue';
+import SimpleContentsContainer from '@/components/RecipePreviewCardContainer.vue';
   export default {
     components: {
       RecentViewVue: SwipeContainer,

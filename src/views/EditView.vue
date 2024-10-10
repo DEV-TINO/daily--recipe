@@ -135,7 +135,7 @@
 </template>
 
 <script>
-import FullRecipeContainerVue from '@/components/FullRecipeContainer.vue';
+import FullRecipeContainerVue from '@/components/RecipeDetail.vue';
 export default {
   components: {
     FullRecipeContainerVue: FullRecipeContainerVue

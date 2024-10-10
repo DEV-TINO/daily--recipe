@@ -1,11 +1,11 @@
 <template>
   <div class="three-container">
-    <SimpleContentsVue v-for="(value, key, index) in simplecontents" :key="index" :simplecontents="simplecontents[value.index]"/>
+    <SimpleContentsVue v-for="(value, key, index) in simplecontents" :key="index" :simplecontents="simplecontents[value.index]" @click="handleClickPreview()"/>
   </div>
 </template>
 
 <script>
-import SimpleContentsVue from './SimpleContents.vue'
+import SimpleContentsVue from './RecipePreviewCard.vue'
 export default {
   data(){
     return {
@@ -34,6 +34,11 @@ export default {
   components: {
     SimpleContentsVue: SimpleContentsVue,
   },
+  methods: {
+    handleClickPreview() {
+      this.$router.push('/detail')
+    },
+  }
 }
 </script>
 
