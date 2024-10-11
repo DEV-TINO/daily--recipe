@@ -1,11 +1,9 @@
 <template>
   <div class="search-title">검색</div>
-
   <div class="search-bar">
     <input class="search-input" type="text" placeholder="요리명을 검색하세요">
     <img @click="handleClickSearch()" class="search-img" src="/images/searchicon.png">
   </div>
-
   <div class="hr-sect">최근 검색어</div>
 <!-- 검색 버튼 현재는 라우터로 연결되어있지만, 텍스트박스에 담긴 내용을 요청하는 것으로 변환할 예정. -->
 </template>

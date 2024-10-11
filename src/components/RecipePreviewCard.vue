@@ -1,6 +1,6 @@
 <template>
   <div class="align">
-    <div class="simple-thumbnail"></div>
+    <div class="card-thumbnail"></div>
     <div class="title">{{ simplecontents.title }}</div>
     <div class="discription">{{ simplecontents.discription }}</div>
   </div>
@@ -16,7 +16,7 @@ export default {
 </script>
 
 <style>
-.simple-thumbnail {
+.card-thumbnail {
   border-radius: 10px;
   background-color: #999;
   width: 100px;

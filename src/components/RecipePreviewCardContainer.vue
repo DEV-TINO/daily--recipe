@@ -1,6 +1,6 @@
 <template>
   <div class="three-container">
-    <SimpleContentsVue v-for="(value, key, index) in simplecontents" :key="index" :simplecontents="simplecontents[value.index]" @click="handleClickPreview()"/>
+    <SimpleContentsVue v-for="(value, key, index) in simplecontents" :key="index" :simplecontents="simplecontents[value.index]" @click="handleClickGoToDetail()"/>
   </div>
 </template>
 
@@ -35,7 +35,7 @@ export default {
     SimpleContentsVue: SimpleContentsVue,
   },
   methods: {
-    handleClickPreview() {
+    handleClickGoToDetail() {
       this.$router.push('/detail')
     },
   }

@@ -21,7 +21,7 @@
         <div>더보기  &gt;</div>
       </router-link>
     </div>
-    <SimpleContentsContainerVue/>
+    <RecipePreviewCardContainerVue/>
   </div>
 
   <div class="home-main-container">
@@ -31,17 +31,17 @@
         <div>더보기  &gt;</div>
       </router-link>
     </div>
-    <SimpleContentsContainerVue/>
+    <RecipePreviewCardContainerVue/>
   </div>
 </template>
 
 <script>
   import SwipeContainer from '@/components/SwipeContentsContainer.vue';
-import SimpleContentsContainer from '@/components/RecipePreviewCardContainer.vue';
+import RecipePreviewCardContainer from '@/components/RecipePreviewCardContainer.vue';
   export default {
     components: {
       RecentViewVue: SwipeContainer,
-      SimpleContentsContainerVue: SimpleContentsContainer,
+      RecipePreviewCardContainerVue: RecipePreviewCardContainer,
     }
   }
 </script>

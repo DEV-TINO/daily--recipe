@@ -1,26 +1,19 @@
 <template>
   <div class="top-nav-bar">
-    <div @click="handleClickgoToParentOrRoot()">&lt;</div>
+    <div @click="handleClickgoToParent()">&lt;</div>
     <div class="result-title">{{mode}}</div>
     <div></div>
   </div>
   <div class="margin-90px"></div>
-  <RecipePreviewItemVue v-for="index in 9" :key="index"/>
+  <RecipeListItemVue v-for="index in 9" :key="index" @click="handleClickGoToDetail()"/>
   <div class="margin-90px"></div>
 </template>
 
 <script>
-import RecipePreviewItemVue from '@/components/RecipePreviewItem.vue'
+import RecipeListItemVue from '@/components/RecipeListItem.vue'
 export default {
   methods: {
-    handleClickBackToHome() {
-      this.$router.push("/");
-    },
-    goToParent() {
-      const parentPath = this.$route.path.split('/').slice(0, -1).join('/');
-      this.$router.push(parentPath);
-    },
-    handleClickgoToParentOrRoot() {
+    handleClickgoToParent() {
       const currentPath = this.$route.path;
       // 현재 경로를 '/'로 분할하고 마지막 경로를 제거
       const parentPath = currentPath.split('/').slice(0, -1).join('/');
@@ -33,9 +26,13 @@ export default {
         this.$router.push('/');
       }
     },
+    handleClickGoToDetail() {
+      const detailPath = this.$route.path+'/detail';
+      this.$router.push(detailPath);
+    }
   },
   components: {
-    RecipePreviewItemVue: RecipePreviewItemVue,
+    RecipeListItemVue: RecipeListItemVue,
   },
   props: {
     mode: {

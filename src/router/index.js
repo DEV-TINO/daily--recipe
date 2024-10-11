@@ -36,7 +36,6 @@ const router = createRouter({
     },
     {
       path: '/search/result/detail',
-      name: 'detail',
       component: RecipeDetail
     },
     {
@@ -47,7 +46,6 @@ const router = createRouter({
     },
     {
       path: '/bookmarked/detail',
-      name: 'detail',
       component: RecipeDetail
     },
     {
@@ -58,7 +56,6 @@ const router = createRouter({
     },
     {
       path: '/posted/detail',
-      name: 'detail',
       component: RecipeDetail
     },
   ]

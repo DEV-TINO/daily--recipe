@@ -1,6 +1,6 @@
 <template>
   <div class="top-nav-bar">
-    <div @click="handleClickGoToParentOrRoot()">&lt;</div>
+    <div @click="handleClickGoToParent()">&lt;</div>
     <div class="result-title">{{ procedure_list[index].title }}</div>
     <div></div>
   </div>
@@ -227,7 +227,7 @@ export default {
         this.index--;
       }
     },
-    handleClickGoToParentOrRoot() {
+    handleClickGoToParent() {
       const currentPath = this.$route.path;
       // 현재 경로를 '/'로 분할하고 마지막 경로를 제거
       const parentPath = currentPath.split('/').slice(0, -1).join('/');
@@ -276,15 +276,15 @@ export default {
 <style>
 .edit-procedure-bar{
   width: 100%;
-  box-sizing: border-box;
   padding: 30px;
+  box-sizing: border-box;
 }
 .edit-subtitle {
-  box-sizing: border-box;
   padding: 30px;
+  padding-top: 0px;
   font-size: 24px;
   font-weight: bold;
-  padding-top: 0px;
+  box-sizing: border-box;
 }
 .edit-controler {
   width: 100%;
@@ -406,39 +406,5 @@ export default {
   font-size: 18px;
   font-weight: bold;
   color: red;
-}
-.recipe-container {
-  width: 100%;
-  box-sizing: border-box;
-}
-.recipe-main-title {
-  font-size: 40px;
-  font-weight: bold;
-}
-.recipe-description {
-  margin-top: 20px;
-  font-size: 18px;
-}
-.recipe-metadata {
-  margin-top: 10px;
-  font-size: 15px;
-  font-weight: 100;
-}
-.recipe-ingredient {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: 20px;
-  border-bottom: solid 1px orange;
-  margin-bottom: 5px;
-  padding-bottom: 2px;
-  padding-left: 2px;
-  width: 100%;
-  font-size: 15px;
-}
-.recipe-instruction-title {
-  margin-top: 40px;
-  margin-bottom: 10px;
-  font-size: 28px;
-  font-weight: bold;
 }
 </style>

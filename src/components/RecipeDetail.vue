@@ -30,5 +30,38 @@ export default {
 </script>
 
 <style>
-
+.recipe-container {
+  width: 100%;
+  box-sizing: border-box;
+}
+.recipe-main-title {
+  font-size: 40px;
+  font-weight: bold;
+}
+.recipe-description {
+  margin-top: 20px;
+  font-size: 18px;
+}
+.recipe-metadata {
+  margin-top: 10px;
+  font-size: 15px;
+  font-weight: 100;
+}
+.recipe-ingredient {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 20px;
+  border-bottom: solid 1px orange;
+  margin-bottom: 5px;
+  padding-bottom: 2px;
+  padding-left: 2px;
+  width: 100%;
+  font-size: 15px;
+}
+.recipe-instruction-title {
+  margin-top: 40px;
+  margin-bottom: 10px;
+  font-size: 28px;
+  font-weight: bold;
+}
 </style>
