@@ -24,12 +24,11 @@
     <!-- 설명 넣기 -->
     <div class="editer-container" v-if="index == 1">
       <textarea 
-        class="edit-editer-title"  
+        class="edit-editer-title-three-lines"  
         type="text" 
         v-model="recipe.description" 
         placeholder="ex) 누구나 쉽게 만들 수 있습니다." 
         maxlength="60"
-        style="height: 108px"
       ></textarea>
       <span class="edit-text-counter">{{ recipe.description.length }}/60</span>
     </div>
@@ -61,24 +60,24 @@
 
     <!-- 레시피 넣기 -->
     <div v-if="index == 3">
-      <div v-for="(item, count_instruction) in recipe.instruction" :key="count_instruction" style="margin-bottom: 15px;">
+      <div v-for="(item, count_instruction) in recipe.instruction" :key="count_instruction">
         <label :for="'image-input-'+count_instruction">
           <div class="edit-image-input" v-if="item.imageUrl == 0">
-            <img src="/images/43icon.png" style="width:50px; height: 50px;">
+            <img src="/images/43icon.png" class="edit-image-input-icon">
             <div>Upload Image</div>
           </div>
         </label>
         <input 
-          style="display: none;" 
+          class="edit-image-input-button" 
           :id="'image-input-'+count_instruction" 
           @change="handleUploadFile(count_instruction)" 
           type="file"
         />
-        <div v-if="item.imageUrl" style="width: 100%; height: 100%; aspect-ratio: auto 4/3;  object-position: center;">
-          <img :src="item.imageUrl"  style="object-fit: cover; height: 100%; width: 100%; border-radius:10px;" @click="handleClickRemoveImage(count_instruction)">
+        <div v-if="item.imageUrl" class="edit-image-container">
+          <img :src="item.imageUrl"  class="edit-image-souce" @click="handleClickRemoveImage(count_instruction)">
         </div>
-        <div style="margin-top: 10px; margin-bottom: -20px;">
-          <div style="font-size: 20px; margin-bottom: 10px; font-weight: 600;">{{ count_instruction+1 }}. 무엇을 해야하나요?</div>
+        <div class="edit-recipe-container">
+          <div class="edit-recipe-description-title">{{ count_instruction+1 }}. 무엇을 해야하나요?</div>
           <textarea 
             class="edit-editer-title" 
             type="text" 
@@ -86,19 +85,18 @@
             v-model="item.title"
             maxlength="20"
           ></textarea>
-          <span class="edit-text-counter" style="position: relative; bottom: 43px; left: 90%;">{{ item.title.length }}/20</span>
+          <span class="edit-text-counter-relative">{{ item.title.length }}/20</span>
         </div>
-        <div style="margin-bottom: -20px;">
-          <div style="font-size: 20px; margin-bottom: 10px; font-weight: 600;">어떻게 해야하나요?</div>
+        <div class="edit-recipe-container">
+          <div class="edit-recipe-description-title">어떻게 해야하나요?</div>
           <textarea
-            class="edit-editer-title" 
+            class="edit-editer-title-three-lines" 
             type="text" 
             placeholder="ex) 쪽파 한 단을 잘게 다듬은 뒤, 간장 1큰스푼, 참기름 1스푼, 깨 1스푼을 넣고 섞어줍니다." 
             v-model="item.description"
             maxlength="60"
-            style="height: 108px;"
           ></textarea>
-          <span class="edit-text-counter" style="position: relative; bottom: 43px; left: 90%;">{{ item.description.length }}/60</span>
+          <span class="edit-text-counter-relative">{{ item.description.length }}/60</span>
         </div>
         <button class="edit-button-delete" @click="handleClickDeleteInstruction(count_instruction)">삭제하기</button>
       </div>
@@ -109,13 +107,13 @@
     <div v-if="index == 4">
       <label :for="'input-thumbnail'"  v-if="recipe.thumbnail == 0">
         <div class="edit-thumbnail-input">
-          <img src="/images/11icon.png" style="width:50px; height: 50px;">
+          <img src="/images/11icon.png" class="edit-image-input-icon">
           <div>Upload Image</div>
         </div>
       </label>
-      <input style="display: none;" :id="'input-thumbnail'" @change="handleUploadThumbnail()" type="file"/>
-      <div v-if="recipe.thumbnail" style="width: 100%; aspect-ratio: auto 1/1;  object-position: center;">
-        <img :src="recipe.thumbnail" style="object-fit: cover; height: 100%; width: 100%; border-radius:10px;" @click="handleClickRemoveThumbnail()">
+      <input class="edit-image-input-button" :id="'input-thumbnail'" @change="handleUploadThumbnail()" type="file"/>
+      <div v-if="recipe.thumbnail" class="edit-thumbnail-container">
+        <img :src="recipe.thumbnail" class="edit-thumbnail-souce" @click="handleClickRemoveThumbnail()">
       </div>
     </div>
 
@@ -125,10 +123,10 @@
   <div style="margin-bottom: 110px;"></div>
 
   <div class="edit-controler">
-    <div v-if="index != 0" class="edit-controler-button" @click="handleClickPrevStep()" style="left: 5px">
+    <div v-if="index != 0" class="edit-controler-button-left" @click="handleClickPrevStep()">
       &lt;
     </div>
-    <div v-if="index != 5" class="edit-controler-button" @click="handleClickNextStep()" style="right: 5px">
+    <div v-if="index != 5" class="edit-controler-button-right" @click="handleClickNextStep()">
       &gt;
     </div>
   </div>
@@ -295,7 +293,7 @@ export default {
   left: 0;
   top: 50%;
 }
-.edit-controler-button{
+.edit-controler-button-left {
   box-sizing: border-box;
   width: 35px;
   height: 100px;
@@ -307,6 +305,21 @@ export default {
   color: orange;
   font-size: 24px;
   font-weight: 100;
+  left: 5px;
+}
+.edit-controler-button-right {
+  box-sizing: border-box;
+  width: 35px;
+  height: 100px;
+  position: absolute;
+  align-content: center;
+  border: 1px solid orange;
+  background: white;
+  border-radius: 10px;
+  color: orange;
+  font-size: 24px;
+  font-weight: 100;
+  right: 5px;
 }
 .edit-editer {
   box-sizing: border-box;
@@ -314,7 +327,14 @@ export default {
   padding-top: 0px;
   width: 100%;
 }
-.edit-image-input{
+.edit-image-input-icon {
+  width: 50px;
+  height: 50px;
+}
+.edit-image-input-button {
+  display: none;
+}
+.edit-image-input {
   width: 100%;
   background: #ccc;
   border-radius: 10px;
@@ -324,6 +344,20 @@ export default {
   align-items: center;
   justify-content: center;
   aspect-ratio: 4/3;
+  margin-bottom: 10px;
+}
+.edit-image-container {
+  width: 100%; 
+  height: 100%; 
+  aspect-ratio: auto 4/3;  
+  object-position: center;
+  margin-bottom: 10px;
+}
+.edit-image-souce {
+  object-fit: cover; 
+  height: 100%; 
+  width: 100%; 
+  border-radius:10px;
 }
 .edit-thumbnail-input {
   width: 100%;
@@ -336,14 +370,32 @@ export default {
   justify-content: center;
   aspect-ratio: 1/1;
 }
-.editer-container{
+.edit-thumbnail-container {
+  width: 100%; 
+  aspect-ratio: auto 1/1;  
+  object-position: center;
+}
+.edit-thumbnail-souce {
+  object-fit: cover; 
+  height: 100%; 
+  width: 100%; 
+  border-radius:10px;
+}
+.editer-container {
   position: relative;
 }
-.edit-text-counter{
+.edit-text-counter {
   color: #ccc;
   position: absolute;
   bottom: 20px;
   right: 10px;
+  font-weight: 100;
+}
+.edit-text-counter-relative {
+  color: #ccc;
+  position: relative; 
+  bottom: 43px; 
+  left: 90%;
   font-weight: 100;
 }
 .edit-editer-title {
@@ -359,6 +411,23 @@ export default {
   border: none;
 }
 .edit-editer-title:focus {
+  outline: none;
+  background-image: linear-gradient(to bottom, transparent 95%, orange 96%);
+}
+.edit-editer-title-three-lines {
+  width: 100%;
+  overflow: hidden;
+  padding-bottom: 10px;
+  font-size: 18px;
+  background-color: white;
+  background-image: linear-gradient(to bottom, transparent 95%, #ccc 96%);
+  background-size: 100% 2em;
+  background-repeat: repeat-y;
+  line-height: 2em;
+  border: none;
+  height: 108px
+}
+.edit-editer-title-three-lines:focus {
   outline: none;
   background-image: linear-gradient(to bottom, transparent 95%, orange 96%);
 }
@@ -379,6 +448,12 @@ export default {
   border-bottom: solid 2px orange;
   padding: 0px 0px 5px 5px;
   margin-bottom: 10px;
+}
+.edit-recipe-container{
+  margin-bottom: -20px;
+}
+.edit-recipe-description-title {
+  font-size: 20px; margin-bottom: 10px; font-weight: 600;
 }
 .edit-button-add {
   padding: 5px 20px 5px 20px;
