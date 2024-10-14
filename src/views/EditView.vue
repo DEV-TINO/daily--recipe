@@ -72,6 +72,7 @@
           :id="'image-input-'+count_instruction" 
           @change="handleUploadFile(count_instruction)" 
           type="file"
+          accept="image/*"
         />
         <div v-if="item.imageUrl" class="edit-image-container">
           <img :src="item.imageUrl"  class="edit-image-souce" @click="handleClickRemoveImage(count_instruction)">
@@ -111,7 +112,13 @@
           <div>Upload Image</div>
         </div>
       </label>
-      <input class="edit-image-input-button" :id="'input-thumbnail'" @change="handleUploadThumbnail()" type="file"/>
+      <input 
+        class="edit-image-input-button" 
+        :id="'input-thumbnail'" 
+        @change="handleUploadThumbnail()" 
+        type="file"
+        accept="image/*"
+      />
       <div v-if="recipe.thumbnail" class="edit-thumbnail-container">
         <img :src="recipe.thumbnail" class="edit-thumbnail-souce" @click="handleClickRemoveThumbnail()">
       </div>
