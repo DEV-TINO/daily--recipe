@@ -9,65 +9,14 @@
 
 <script>
 import RecipeDetailVue from '@/components/RecipeDetail.vue'
+import axios from 'axios'
 export default {
+  mounted() {
+    this.loadPost();
+  },
   data() {
     return {
-      recipe: {
-        user_id: 'shushu',
-        thumbnail: '',
-        title: '간장계란밥',
-        description: '누구나 손쉽게 만드는 간장계란밥 비법 대공개',
-        ingredient: [
-          {
-            name: '밥',
-            quantity: '1공기',
-          },
-          {
-            name: '간장',
-            quantity: '5스푼',
-          },
-          {
-            name: '참기름',
-            quantity: '1스푼',
-          },
-          {
-            name: '계란',
-            quantity: '1개',
-          },
-          {
-            name: '쪽파',
-            quantity: '1단',
-          },
-        ],
-        instruction: [
-          {
-            title: '양념장 만들기',
-            imageUrl: '',
-            description: '간장 5스푼, 참기름 1스푼과 쪽파 1단을 다져 섞어주세요.',
-          },
-          {
-            title: '따듯한 밥 준비하기',
-            imageUrl: '',
-            description: '따듯한 밥 1공기를 멋진 그릇에 담아주세요.',
-          },
-          {
-            title: '계란후라이 만들기',
-            imageUrl: '',
-            description: '계란 1개를 프라이팬에 부쳐 반숙란을 만들어주세요',
-          },
-          {
-            title: '플레이팅',
-            imageUrl: '',
-            description: '밥이 담겨져 있는 그릇에 반숙란을 올리고 양념장을 올려주세요',
-          },
-          {
-            title: '완성',
-            imageUrl: '',
-            description: '완성입니다.',
-          },
-        ],
-        created_at: '2024-09-25',
-      },
+      recipe: "",
     }
   },
   components: {
@@ -86,6 +35,14 @@ export default {
         this.$router.push('/');
       }
     },
+    async loadPost() {
+      try {
+        const response = await axios.get("/mockdata/eggsoysaucerice/eggsoysaucerice.json");
+        this.recipe = response.data;
+      } catch (error) {
+        console.error("게시물을 불러오는 중 오류가 발생했습니다.", error);
+      }
+    }
   }
 }
 </script>
