@@ -5,13 +5,59 @@
     <div></div>
   </div>
   <div class="margin-90px"></div>
-  <RecipeListItemVue v-for="index in 9" :key="index" @click="handleClickGoToDetail()"/>
+  <RecipeListItemVue v-for="(value, index) in recipeList" :key="index" @click="handleClickGoToDetail(value.id)" :previewData="value"/>
   <div class="margin-90px"></div>
 </template>
 
 <script>
 import RecipeListItemVue from '@/components/RecipeListItem.vue'
 export default {
+  data(){
+    return {
+      recipeList: [
+        {
+          id: "eggsoysaucerice",
+          title: "간장계란밥",
+          subtitle: "누구나 쉽게 만들 수 있는 간장계란밥 레시피 대공개",
+          thumbnail: "/mockdata/eggsoysaucerice/image/step_05.png",
+          created_at: "2024-09-25",
+          username: "shushu",
+        },
+        {
+          id: "eggsoysaucerice",
+          title: "간장계란밥",
+          subtitle: "누구나 쉽게 만들 수 있는 간장계란밥 레시피 대공개",
+          thumbnail: "/mockdata/eggsoysaucerice/image/step_05.png",
+          created_at: "2024-09-25",
+          username: "shushu",
+        },
+        {
+          id: "eggsoysaucerice",
+          title: "간장계란밥",
+          subtitle: "누구나 쉽게 만들 수 있는 간장계란밥 레시피 대공개",
+          thumbnail: "/mockdata/eggsoysaucerice/image/step_05.png",
+          created_at: "2024-09-25",
+          username: "shushu",
+        },
+        {
+          id: "eggsoysaucerice",
+          title: "간장계란밥",
+          subtitle: "누구나 쉽게 만들 수 있는 간장계란밥 레시피 대공개",
+          thumbnail: "/mockdata/eggsoysaucerice/image/step_05.png",
+          created_at: "2024-09-25",
+          username: "shushu",
+        },
+        {
+          id: "eggsoysaucerice",
+          title: "간장계란밥",
+          subtitle: "누구나 쉽게 만들 수 있는 간장계란밥 레시피 대공개",
+          thumbnail: "/mockdata/eggsoysaucerice/image/step_05.png",
+          created_at: "2024-09-25",
+          username: "shushu",
+        },
+      ]
+    }
+  },
   methods: {
     handleClickgoToParent() {
       const currentPath = this.$route.path;
@@ -26,8 +72,8 @@ export default {
         this.$router.push('/');
       }
     },
-    handleClickGoToDetail() {
-      const detailPath = this.$route.path+'/detail';
+    handleClickGoToDetail(recipeName) {
+      const detailPath = this.$route.path+'/detail/'+recipeName;
       this.$router.push(detailPath);
     }
   },
