@@ -37,7 +37,7 @@ export default {
     },
     async loadPost() {
       try {
-        const response = await axios.get("/mockdata/eggsoysaucerice/eggsoysaucerice.json");
+        const response = await axios.get("/mockdata/eggsoysaucerice/recipe.json");
         this.recipe = response.data;
       } catch (error) {
         console.error("게시물을 불러오는 중 오류가 발생했습니다.", error);
