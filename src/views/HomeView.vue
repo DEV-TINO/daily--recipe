@@ -36,14 +36,32 @@
 </template>
 
 <script>
-  import SwipeContainer from '@/components/SwipeContentsContainer.vue';
+import SwipeContainer from '@/components/SwipeContentsContainer.vue';
 import RecipePreviewCardContainer from '@/components/RecipePreviewCardContainer.vue';
-  export default {
-    components: {
-      RecentViewVue: SwipeContainer,
-      RecipePreviewCardContainerVue: RecipePreviewCardContainer,
+import axios from 'axios'
+export default {
+  data() {
+    return {
+      recentViewedPosts: [],
+      bookmarkedPosts: [],
+      myPosts: [],
     }
-  }
+  },
+  components: {
+    RecentViewVue: SwipeContainer,
+    RecipePreviewCardContainerVue: RecipePreviewCardContainer,
+  },
+  methods: {
+    async loadRecentViewdPosts() {
+      try {
+        const response = await axios.get("/mockdata/index.json");
+        this.recentViewedPosts = response.data;
+      } catch (error) {
+        console.error("리스트를 불러오는 중 오류가 발생했습니다.", error);
+      }
+    }
+  },
+}
 </script>
 
 <style>
