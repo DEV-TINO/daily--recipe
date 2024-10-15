@@ -4,7 +4,6 @@ import SearchView from '../views/SearchView.vue'
 import EditView from '../views/EditView.vue'
 import ResultList from '../views/ResultList.vue'
 import RecipeDetail from '../views/RecipeDetailView.vue'
-import { Result } from 'postcss'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
