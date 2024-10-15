@@ -1,20 +1,21 @@
 <template>
-  <div class="three-container">
-    <SimpleContentsVue v-for="(value, key, index) in simplecontents" :key="index" :simplecontents="simplecontents[value.index]" @click="handleClickGoToDetail()"/>
+  <div class="card-container">
+    <RecipePreviewCardVue v-for="(value, index) in previewContent" :key="index" :previewContent="previewContent[value.index]" @click="handleClickGoToDetail(value.id)"/>
   </div>
 </template>
 
 <script>
-import SimpleContentsVue from './RecipePreviewCard.vue'
+import RecipePreviewCardVue from './RecipePreviewCard.vue'
 export default {
   data(){
     return {
-      simplecontents: [
+      previewContent: [
         {
           index: 0,
-          title: "title1",
-          discription: "subtitle",
-          thumbnail: "",
+          id: "eggsoysaucerice",
+          title: "간장계란밥",
+          discription: "누구나 만들 수 있는 간장 계란밥 레시피 대공개",
+          thumbnail: "/mockdata/eggsoysaucerice/image/step_05.png",
         },
         {
           index: 1,
@@ -32,18 +33,19 @@ export default {
     }
   },
   components: {
-    SimpleContentsVue: SimpleContentsVue,
+    RecipePreviewCardVue: RecipePreviewCardVue,
   },
   methods: {
-    handleClickGoToDetail() {
-      this.$router.push('/detail')
+    handleClickGoToDetail(recipeName) {
+      const requestUrl = '/detail/'+recipeName
+      this.$router.push(requestUrl)
     },
   }
 }
 </script>
 
 <style>
-.three-container {
+.card-container {
   margin-top: 10px;
   width: 100%;
   display: inline-flex;
