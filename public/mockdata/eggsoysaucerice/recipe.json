@@ -1,6 +1,6 @@
 {
   "user_id": "shushu",
-  "thumbnail": "/mockdata/eggsoysaucerice/image/eggsoysaucerice_step_05.png",
+  "thumbnail": "/mockdata/eggsoysaucerice/image/step_05.png",
   "title": "간장계란밥",
   "description": "누구나 손쉽게 만드는 간장계란밥 비법 대공개",
   "ingredient": [
@@ -28,27 +28,27 @@
   "instruction": [
     {
       "title": "양념장 만들기",
-      "imageUrl": "/mockdata/eggsoysaucerice/image/eggsoysaucerice_step_01.png",
+      "imageUrl": "/mockdata/eggsoysaucerice/image/step_01.png",
       "description": "간장 5스푼, 참기름 1스푼과 쪽파 1단을 다져 섞어주세요."
     },
     {
       "title": "따듯한 밥 준비하기",
-      "imageUrl": "/mockdata/eggsoysaucerice/image/eggsoysaucerice_step_02.png",
+      "imageUrl": "/mockdata/eggsoysaucerice/image/step_02.png",
       "description": "따듯한 밥 1공기를 멋진 그릇에 담아주세요."
     },
     {
       "title": "계란후라이 만들기",
-      "imageUrl": "/mockdata/eggsoysaucerice/image/eggsoysaucerice_step_03.png",
+      "imageUrl": "/mockdata/eggsoysaucerice/image/step_03.png",
       "description": "계란 1개를 프라이팬에 부쳐 반숙란을 만들어주세요"
     },
     {
       "title": "플레이팅",
-      "imageUrl": "/mockdata/eggsoysaucerice/image/eggsoysaucerice_step_04.png",
+      "imageUrl": "/mockdata/eggsoysaucerice/image/step_04.png",
       "description": "밥이 담겨져 있는 그릇에 반숙란을 올리고 양념장을 올려주세요"
     },
     {
       "title": "완성",
-      "imageUrl": "/mockdata/eggsoysaucerice/image/eggsoysaucerice_step_05.png",
+      "imageUrl": "/mockdata/eggsoysaucerice/image/step_05.png",
       "description": "완성입니다."
     }
   ],
