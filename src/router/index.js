@@ -14,7 +14,7 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: '/detail',
+      path: '/detail/:id',
       component: RecipeDetail,
     },
     {
@@ -34,7 +34,7 @@ const router = createRouter({
       props: { mode: '검색결과' }
     },
     {
-      path: '/search/result/detail',
+      path: '/search/result/detail/:id',
       component: RecipeDetail
     },
     {
@@ -44,7 +44,7 @@ const router = createRouter({
       props: { mode: '저장한 레시피' },
     },
     {
-      path: '/bookmarked/detail',
+      path: '/bookmarked/detail/:id',
       component: RecipeDetail
     },
     {
@@ -54,7 +54,7 @@ const router = createRouter({
       props: { mode: '등록한 레시피' },
     },
     {
-      path: '/posted/detail',
+      path: '/posted/detail/:id',
       component: RecipeDetail
     },
   ]
