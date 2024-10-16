@@ -28,7 +28,7 @@ const router = createRouter({
       component: SearchView,
     },
     {
-      path: '/search/result',
+      path: '/search/:id',
       name: 'result',
       component: ResultList,
       props: { mode: '검색결과' }
