@@ -1,7 +1,7 @@
 <template>
   <div class="search-title">검색</div>
   <div class="search-bar">
-    <input class="search-input" type="text" placeholder="요리명을 검색하세요">
+    <input class="search-input" type="text" placeholder="요리명을 검색하세요" v-model="searchText">
     <img @click="handleClickSearch()" class="search-img" src="/images/searchicon.png">
   </div>
   <div class="hr-sect">최근 검색어</div>
@@ -10,9 +10,14 @@
 
 <script>
 export default {
+  data() {
+    return {
+      searchText: "",
+    }
+  },
   methods: {
     handleClickSearch() {
-      this.$router.push("/search/result")
+      this.$router.push("/search/"+this.searchText)
     }
   }
 }
