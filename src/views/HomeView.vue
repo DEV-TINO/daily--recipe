@@ -15,7 +15,7 @@
   </div>
 
   <div class="home-main-container">
-    <div class="threecontainertitle">
+    <div class="card-container-title">
       <div class="main-title">저장한 레시피</div>
       <router-link to="/bookmarked" class="more">
         <div>더보기  &gt;</div>
@@ -25,7 +25,7 @@
   </div>
 
   <div class="home-main-container">
-    <div class="threecontainertitle">
+    <div class="card-container-title">
       <div class="main-title">등록한 레시피</div> 
       <router-link to="/posted" class="more">
         <div>더보기  &gt;</div>
@@ -38,8 +38,15 @@
 <script>
 import SwipeContainer from '@/components/SwipeContentsContainer.vue';
 import RecipePreviewCardContainer from '@/components/RecipePreviewCardContainer.vue';
-import axios from 'axios'
+import { useRecipeStore } from '../stores/recipeStore'
+
 export default {
+  setup() {
+    const postStore = useRecipeStore();
+    postStore.fetchPosts();
+
+    return { postStore };
+  },
   data() {
     return {
       recentViewedPosts: [],
@@ -50,16 +57,6 @@ export default {
   components: {
     RecentViewVue: SwipeContainer,
     RecipePreviewCardContainerVue: RecipePreviewCardContainer,
-  },
-  methods: {
-    async loadRecentViewdPosts() {
-      try {
-        const response = await axios.get("/mockdata/index.json");
-        this.recentViewedPosts = response.data;
-      } catch (error) {
-        console.error("리스트를 불러오는 중 오류가 발생했습니다.", error);
-      }
-    }
   },
 }
 </script>
@@ -87,7 +84,7 @@ export default {
   width: fit-content;
   margin-right: 10px;
 }
-.threecontainertitle {
+.card-container-title {
   align-items: center;
   display: grid;
   grid-template-columns: 1fr 60px;
