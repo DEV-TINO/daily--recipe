@@ -130,10 +130,10 @@
   <div style="margin-bottom: 110px;"></div>
 
   <div class="edit-controler">
-    <div v-if="index != 0" class="edit-controler-button-left" @click="handleClickPrevStep()">
+    <div v-if="index !== 0" class="edit-controler-button-left" @click="handleClickPrevStep()">
       &lt;
     </div>
-    <div v-if="index != 5" class="edit-controler-button-right" @click="handleClickNextStep()">
+    <div v-if="index !== 5" class="edit-controler-button-right" @click="handleClickNextStep()">
       &gt;
     </div>
   </div>
@@ -149,6 +149,7 @@ export default {
     return {
       //레시피 object화
       recipe: {
+        recipeId: "",
         user_id: 'shushu',
         thumbnail: '',
         title: '',
@@ -218,11 +219,44 @@ export default {
   },
   methods: {
     handleClickNextStep() {
-      if (this.index >= 5) {
-        this.index = 5;
-      } else {
-        this.index ++;
+      switch (this.index) {
+        case 0: 
+        if (this.recipe.title != 0) {
+          this.index++
+        }
+        break;
+        case 1: 
+        if (this.recipe.description != 0) {
+          this.index++
+        }
+        break;
+        case 2: 
+        const ingredientCheck = this.recipe.ingredient.every(item =>
+          item.name && item.quantity
+        );
+        if (ingredientCheck && this.recipe.ingredient != 0) {
+          this.index ++;
+        }
+        break;
+        case 3: 
+        const instructionCheck = this.recipe.instruction.every(item =>
+          item.description && item.imageUrl && item.title
+        );
+        if (instructionCheck && this.recipe.instruction != 0) {
+          this.index ++;
+        }
+        break;
+        case 4: 
+        if (this.recipe.thumbnail != 0) {
+          this.index++
+        }
+        break;
       }
+      // if (this.index >= 5) {
+      //   this.index = 5;
+      // } else {
+      //   this.index ++;
+      // }
       //다음단계 함수.
     },
     handleClickPrevStep() {
@@ -245,13 +279,13 @@ export default {
       }
     },
     handleClickAddIngredient() {
-      this.recipe.ingredient.push({name: '',quantity: '',});
+      this.recipe.ingredient.push({name: '',quantity: ''});
     },
     handleClickDeleteIngredient(index) {
       this.recipe.ingredient.splice(index, 1);
     },
     handleClickAddInstruction() {
-      this.recipe.instruction.push({title: '', imageUrl: '', description: '',})
+      this.recipe.instruction.push({title: '', imageUrl: '', description: ''})
     },
     handleClickDeleteInstruction(index) {
       this.recipe.instruction.splice(index, 1)
@@ -279,7 +313,7 @@ export default {
 </script>
 
 <style>
-.edit-procedure-bar{
+.edit-procedure-bar {
   width: 100%;
   padding: 30px;
   box-sizing: border-box;
