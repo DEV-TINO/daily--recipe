@@ -28,13 +28,13 @@ const router = createRouter({
       component: SearchView,
     },
     {
-      path: '/search/:id',
+      path: '/search/:query',
       name: 'result',
       component: ResultList,
-      props: { mode: '검색결과' }
+      props: (route) => ({ mode: '검색결과', query: route.params.query})
     },
     {
-      path: '/search/result/detail/:id',
+      path: '/search/:query/detail/:id',
       component: RecipeDetail
     },
     {

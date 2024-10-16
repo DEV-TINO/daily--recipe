@@ -1,61 +1,31 @@
 <template>
   <div class="top-nav-bar">
     <div @click="handleClickgoToParent()">&lt;</div>
-    <div class="result-title">{{mode}}</div>
+    <div class="result-title">{{ mode }}</div>
     <div></div>
   </div>
   <div class="margin-90px"></div>
-  <RecipeListItemVue v-for="(value, index) in recipeList" :key="index" @click="handleClickGoToDetail(value.id)" :previewData="value"/>
+  <RecipeListItemVue v-for="(value, index) in displayedItems" :key="index" @click="handleClickGoToDetail(value.id)" :previewData="value"/>
   <div class="margin-90px"></div>
 </template>
 
 <script>
 import RecipeListItemVue from '@/components/RecipeListItem.vue'
+import axios from 'axios';
 export default {
+  mounted() {
+    axios.get('/mockdata/index.json')
+      .then(response => {
+        this.recipeList = response.data;
+      })
+      .catch(error => {
+        console.error("리스트를 가져오는데 실패했습니다.", error);
+      });
+  },
   data(){
     return {
-      recipeList: [
-        {
-          id: "eggsoysaucerice",
-          title: "간장계란밥",
-          subtitle: "누구나 쉽게 만들 수 있는 간장계란밥 레시피 대공개",
-          thumbnail: "/mockdata/eggsoysaucerice/image/step_05.png",
-          created_at: "2024-09-25",
-          username: "shushu",
-        },
-        {
-          id: "eggsoysaucerice",
-          title: "간장계란밥",
-          subtitle: "누구나 쉽게 만들 수 있는 간장계란밥 레시피 대공개",
-          thumbnail: "/mockdata/eggsoysaucerice/image/step_05.png",
-          created_at: "2024-09-25",
-          username: "shushu",
-        },
-        {
-          id: "eggsoysaucerice",
-          title: "간장계란밥",
-          subtitle: "누구나 쉽게 만들 수 있는 간장계란밥 레시피 대공개",
-          thumbnail: "/mockdata/eggsoysaucerice/image/step_05.png",
-          created_at: "2024-09-25",
-          username: "shushu",
-        },
-        {
-          id: "eggsoysaucerice",
-          title: "간장계란밥",
-          subtitle: "누구나 쉽게 만들 수 있는 간장계란밥 레시피 대공개",
-          thumbnail: "/mockdata/eggsoysaucerice/image/step_05.png",
-          created_at: "2024-09-25",
-          username: "shushu",
-        },
-        {
-          id: "eggsoysaucerice",
-          title: "간장계란밥",
-          subtitle: "누구나 쉽게 만들 수 있는 간장계란밥 레시피 대공개",
-          thumbnail: "/mockdata/eggsoysaucerice/image/step_05.png",
-          created_at: "2024-09-25",
-          username: "shushu",
-        },
-      ]
+      searchQuery: this.query || '',
+      recipeList: []
     }
   },
   methods: {
@@ -75,7 +45,7 @@ export default {
     handleClickGoToDetail(recipeName) {
       const detailPath = this.$route.path+'/detail/'+recipeName;
       this.$router.push(detailPath);
-    }
+    },
   },
   components: {
     RecipeListItemVue: RecipeListItemVue,
@@ -83,8 +53,23 @@ export default {
   props: {
     mode: {
       type: String,
+      required: true,
     },
+    query: {
+      type: String,
+      required: false,
+    }
   },
+  computed: {
+    displayedItems() {
+      if (this.mode === '검색결과'){
+        return this.recipeList.filter(item =>
+          item.title.toLowerCase().includes(this.searchQuery.toLowerCase())
+        );
+      }
+      return this.recipeList;
+    }
+  }
 }
 </script>
 
