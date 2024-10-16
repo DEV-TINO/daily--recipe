@@ -138,9 +138,12 @@ export default {
   border: none;
   background: none;
   font-size: 18px;
-  margin-left: 5px;
+  margin-left: 10px;
+  padding-right: 5px;
+  color: #999;
 }
 .search-term {
   font-size: 18px;
+  color: #999
 }
 </style>
