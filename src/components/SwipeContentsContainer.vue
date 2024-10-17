@@ -1,10 +1,16 @@
 <template>
-  <div class="swipe-view-container" v-for="(value, index) in recentViewedPosts" :key="index">
-    <SwipeContentsVue v-if="page == index" :contentData="value"/>
+  <div class="swipe-view-container" v-for="(value, index) in recentViewedPosts" :key="index" @click="handleClickGoToDetail(value.id)">
+    <SwipeContentsVue v-if="page == index" :contentData="value" />
   </div>
   <div class="swipe-controller">
     <div @click="handleClickLeftArrow" class="left">&lt;</div>
     <div @click="handleClickRightArrow" class="right">&gt;</div>
+  </div>
+  <div class="swipe-indicator">
+    <div v-for="index in recentViewedPosts.length" :key="index">
+      <div v-if="page + 1 == index" class="clicked"></div>
+      <div v-else class="nonclicked" @click="handleClickIndicator(index)"></div>
+    </div>
   </div>
 </template>
 
@@ -22,18 +28,25 @@ export default {
   methods: {
     handleClickLeftArrow() {
       if (this.page == 0) {
-        this.page = 0
+        this.page = this.recentViewedPosts.length - 1
       }else {
         this.page--
       }
     },
     handleClickRightArrow() {
       if (this.page == this.recentViewedPosts.length - 1) {
-        this.page = this.recentViewedPosts.length - 1
+        this.page = 0
       }else {
         this.page++
       }
     },
+    handleClickGoToDetail(recipeId) {
+      const requestUrl = '/detail/'+recipeId
+      this.$router.push(requestUrl)
+    },
+    handleClickIndicator(index) {
+      this.page = index - 1;
+    }
   },
   props: {
     recentViewedPosts: Array
@@ -64,6 +77,25 @@ export default {
     border-radius: 10px;
     align-content: center;
     transform: translate(-5px);
+  }
+}
+.swipe-indicator{
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  font-size: 20px;
+  padding-top: 10px;
+  .clicked {
+    background: orange;
+    border-radius: 20px;
+    height: 10px;
+    width: 10px;
+  }
+  .nonclicked{
+    background: #aaa;
+    border-radius: 20px;
+    height: 10px;
+    width: 10px;
   }
 }
 </style>
