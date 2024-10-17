@@ -28,9 +28,9 @@
   ],
   "instruction": [
     {
-      "title": "양념장 만들기",
+      "title": "떡 불리기",
       "imageUrl": "/mockdata/eggsoysaucerice/image/step_01.png",
-      "description": "간장 5스푼, 참기름 1스푼과 쪽파 1단을 다져 섞어주세요."
+      "description": "떡을 5분간 물에 불려주세요"
     },
     {
       "title": "쌀국수 삶기",
