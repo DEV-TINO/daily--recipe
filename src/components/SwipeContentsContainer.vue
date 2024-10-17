@@ -98,4 +98,10 @@ export default {
     width: 10px;
   }
 }
+.swipe-view-container{
+  width: 100%;
+  height: fit-content;
+  position: relative;
+  z-index: 1;
+}
 </style>
