@@ -11,7 +11,7 @@
 
   <div class="home-main-container">
     <div class="main-title">최근 본 레시피</div>
-    <RecentViewVue/>
+    <SwipeContainerVue :recentViewedPosts="recentViewedPosts"/>
   </div>
 
   <div class="home-main-container">
@@ -21,7 +21,7 @@
         <div>더보기  &gt;</div>
       </router-link>
     </div>
-    <RecipePreviewCardContainerVue/>
+    <RecipePreviewCardContainerVue :cardData="bookmarkedPosts"/>
   </div>
 
   <div class="home-main-container">
@@ -31,31 +31,93 @@
         <div>더보기  &gt;</div>
       </router-link>
     </div>
-    <RecipePreviewCardContainerVue/>
+    <RecipePreviewCardContainerVue :cardData="myPosts"/>
   </div>
 </template>
 
 <script>
 import SwipeContainer from '@/components/SwipeContentsContainer.vue';
 import RecipePreviewCardContainer from '@/components/RecipePreviewCardContainer.vue';
-import { useRecipeStore } from '../stores/recipeStore'
 
 export default {
-  setup() {
-    const postStore = useRecipeStore();
-    postStore.fetchPosts();
-
-    return { postStore };
-  },
   data() {
     return {
-      recentViewedPosts: [],
-      bookmarkedPosts: [],
-      myPosts: [],
+      recentViewedPosts: [
+        {
+          id: "eggsoysaucerice",
+          title: "간장계란밥",
+          discription: "누구나 만들 수 있는 간장 계란밥 레시피 대공개",
+          thumbnail: "/mockdata/eggsoysaucerice/image/step_05.png",
+        },
+        {
+          id: "thinoodle",
+          title: "까오팟 무쌉",
+          discription: "한국에서 즐기는 태국식 볶음면",
+          thumbnail: "/mockdata/eggsoysaucerice/image/step_05.png",
+        },
+        {
+          id: "toppokki",
+          title: "떡볶이",
+          discription: "집에서 간단하게 즐기는 떡볶이 레시피",
+          thumbnail: "/mockdata/eggsoysaucerice/image/step_05.png",
+        },
+        {
+          id: "toppokki",
+          title: "떡볶이2",
+          discription: "집에서 간단하게 즐기는 떡볶이 레시피",
+          thumbnail: "/mockdata/eggsoysaucerice/image/step_05.png",
+        },
+        {
+          id: "toppokki",
+          title: "떡볶이3",
+          discription: "집에서 간단하게 즐기는 떡볶이 레시피",
+          thumbnail: "/mockdata/eggsoysaucerice/image/step_05.png",
+        },
+      ],
+      bookmarkedPosts: [
+        {
+          id: "eggsoysaucerice",
+          title: "간장계란밥",
+          discription: "누구나 만들 수 있는 간장 계란밥 레시피 대공개",
+          thumbnail: "/mockdata/eggsoysaucerice/image/step_05.png",
+        },
+        {
+          id: "thinoodle",
+          title: "까오팟무쌉",
+          discription: "한국에서 즐기는 태국식 볶음면",
+          thumbnail: "/mockdata/eggsoysaucerice/image/step_05.png",
+        },
+        {
+          id: "toppokki",
+          title: "떡볶이",
+          discription: "집에서 간단하게 즐기는 떡볶이 레시피",
+          thumbnail: "/mockdata/eggsoysaucerice/image/step_05.png",
+        },
+      ],
+      myPosts: [
+        {
+          id: "eggsoysaucerice",
+          title: "간장계란밥",
+          discription: "누구나 만들 수 있는 간장 계란밥 레시피 대공개",
+          thumbnail: "/mockdata/eggsoysaucerice/image/step_05.png",
+        },
+        {
+          id: "thinoodle",
+          title: "까오팟무쌉",
+          discription: "한국에서 즐기는 태국식 볶음면",
+          thumbnail: "/mockdata/eggsoysaucerice/image/step_05.png",
+        },
+        {
+          id: "toppokki",
+          title: "떡볶이",
+          discription: "집에서 간단하게 즐기는 떡볶이 레시피",
+          thumbnail: "/mockdata/eggsoysaucerice/image/step_05.png",
+        },
+      ],
     }
   },
   components: {
-    RecentViewVue: SwipeContainer,
+    SwipeContainerVue: SwipeContainer,
     RecipePreviewCardContainerVue: RecipePreviewCardContainer,
   },
 }
