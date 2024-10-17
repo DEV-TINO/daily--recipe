@@ -1,7 +1,8 @@
 <template>
   <div class="top-nav-bar">
     <div @click="handleClickgoToParent()">&lt;</div>
-    <div class="result-title">{{ mode }}</div>
+    <div v-if="resultTitle == '검색결과'" class="result-title">{{ searchQuery }} ({{ displayedItems.length }})</div>
+    <div v-else class="result-title">{{ mode }}</div>
     <div></div>
   </div>
   <div class="margin-90px"></div>
@@ -24,6 +25,7 @@ export default {
   },
   data(){
     return {
+      resultTitle: this.mode || '',
       searchQuery: this.query || '',
       recipeList: []
     }
