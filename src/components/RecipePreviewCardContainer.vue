@@ -36,8 +36,8 @@ export default {
     RecipePreviewCardVue: RecipePreviewCardVue,
   },
   methods: {
-    handleClickGoToDetail(recipeName) {
-      const requestUrl = '/detail/'+recipeName
+    handleClickGoToDetail(recipeId) {
+      const requestUrl = '/detail/'+recipeId
       this.$router.push(requestUrl)
     },
   }
@@ -49,6 +49,7 @@ export default {
   margin-top: 10px;
   width: 100%;
   display: inline-flex;
-  justify-content: space-between;
+  justify-content: left;
+  gap: 25px;
 }
 </style>
