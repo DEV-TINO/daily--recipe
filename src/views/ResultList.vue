@@ -6,7 +6,8 @@
     <div></div>
   </div>
   <div class="margin-90px"></div>
-  <RecipeListItemVue v-for="(value, index) in displayedItems" :key="index" @click="handleClickGoToDetail(value.id)" :previewData="value"/>
+  <div v-if="displayedItems.length"><RecipeListItemVue v-for="(value, index) in displayedItems" :key="index" @click="handleClickGoToDetail(value.id)" :previewData="value"/></div>
+  <div v-else class="result-title">결과가 없습니다.</div>
   <div class="margin-90px"></div>
 </template>
 
@@ -41,7 +42,7 @@ export default {
         this.$router.push(parentPath);
       } else {
         // 이미 루트에 도달했다면 루트로 이동
-        this.$router.push('/');
+        this.$router.push('/home');
       }
     },
     handleClickGoToDetail(recipeName) {
