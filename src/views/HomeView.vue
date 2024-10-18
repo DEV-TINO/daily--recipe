@@ -3,10 +3,11 @@
     <div class="banner-icon">
       <img class="banner-icon" src="/images/homeicon.jpg">
     </div>
-    <div class="user-info">
-      <div class="user-name">username</div>
-      <button class="logout-button">로그아웃</button>
+    <div class="user-info" v-if="user">
+      <div class="user-name" >{{ user.username }}</div>
+      <button class="logout-button" @click="handleClickLogout">로그아웃</button>
     </div>
+    <div v-else>로그인해 주세요<router-link :to="{ name: 'Login' }">로그인</router-link></div>
   </div>
 
   <div class="home-main-container">
@@ -38,6 +39,8 @@
 <script>
 import SwipeContainer from '@/components/SwipeContentsContainer.vue';
 import RecipePreviewCardContainer from '@/components/RecipePreviewCardContainer.vue';
+import { mapActions, mapState } from 'pinia';
+import { useAuthStore } from '../stores/authStore';
 
 export default {
   data() {
@@ -119,6 +122,16 @@ export default {
   components: {
     SwipeContainerVue: SwipeContainer,
     RecipePreviewCardContainerVue: RecipePreviewCardContainer,
+  },
+  computed: {
+    ...mapState(useAuthStore, ['user']),
+  },
+  methods: {
+    ...mapActions(useAuthStore, ['logout']),
+    handleClickLogout() {
+      this.logout();
+      this.$router.push({ name: 'Login' }); // 로그아웃 후 로그인 화면으로 이동
+    },
   },
 }
 </script>
