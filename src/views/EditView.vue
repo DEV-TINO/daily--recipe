@@ -126,6 +126,9 @@
 
     <!-- 미리 보기 -->
     <FullRecipeContainerVue v-if="index == 5" :recipe="recipe"/>
+    <div v-if="index == 5" class="edit-create-post-button">
+      게시물 생성하기
+    </div>
   </div>
   <div style="margin-bottom: 110px;"></div>
 
@@ -137,6 +140,7 @@
       &gt;
     </div>
   </div>
+  
 </template>
 
 <script>
@@ -252,12 +256,6 @@ export default {
         }
         break;
       }
-      // if (this.index >= 5) {
-      //   this.index = 5;
-      // } else {
-      //   this.index ++;
-      // }
-      //다음단계 함수.
     },
     handleClickPrevStep() {
       if (this.index <= 0) {
@@ -275,7 +273,7 @@ export default {
         this.$router.push(parentPath);
       } else {
         // 이미 루트에 도달했다면 루트로 이동
-        this.$router.push('/');
+        this.$router.push('/home');
       }
     },
     handleClickAddIngredient() {
@@ -312,7 +310,19 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+.edit-create-post-button {
+  width: 100%;
+  margin-top: 30px;
+  padding: 10px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  border: solid 1px orange;
+  border-radius: 10px;
+  color: orange;
+  box-sizing: border-box;
+}
 .edit-procedure-bar {
   width: 100%;
   padding: 30px;
