@@ -32,7 +32,7 @@ export default {
         this.$router.push(parentPath);
       } else {
         // 이미 루트에 도달했다면 루트로 이동
-        this.$router.push('/');
+        this.$router.push('/home');
       }
     },
     async loadPost(recipeName) {
