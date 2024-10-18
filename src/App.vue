@@ -1,6 +1,6 @@
 <template>
   <router-view></router-view>
-  <BottomNavVue/>
+  <BottomNavVue v-if="this.$route.path == '/home' || this.$route.path == '/search'"/>
 </template>
 
 <script>
