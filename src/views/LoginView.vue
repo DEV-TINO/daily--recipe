@@ -29,8 +29,10 @@ export default {
     ...mapActions(useAuthStore, ['login']),
     handleClickLogin() {
       const userData = { username: this.username };
-      this.login(userData);
-      this.$router.push({ name: 'home' }); // 로그인 성공 후 홈 화면으로 이동
+      if (userData.username) {
+        this.login(userData);
+        this.$router.push({ name: 'home' }); // 로그인 성공 후 홈 화면으로 이동
+      }
     },
   },
 };

@@ -12,7 +12,11 @@
 
   <div class="home-main-container">
     <div class="main-title">최근 본 레시피</div>
-    <SwipeContainerVue :recentViewedPosts="recentViewedPosts"/>
+    <SwipeContainerVue v-if="recentlyViewedRecipes.length" :recentViewedPosts="recentlyViewedRecipes"/>
+    <div v-else class="non-swipe-view">
+      <img src="/images/homeview/non_recent_icon.png" class="icon">
+      <div class="title">최근 본 게시물이 없습니다.</div>
+    </div>
   </div>
 
   <div class="home-main-container">
@@ -22,7 +26,11 @@
         <div>더보기  &gt;</div>
       </router-link>
     </div>
-    <RecipePreviewCardContainerVue :cardData="bookmarkedPosts"/>
+    <RecipePreviewCardContainerVue v-if="bookmarkedRecipes.length" :cardData="bookmarkedRecipes"/>
+    <div v-else class="non-card-view">
+      <img src="/images/homeview/non_bookmark_icon.png" class="icon">
+      <div class="title">저장한 레시피가 없습니다.</div>
+    </div>
   </div>
 
   <div class="home-main-container">
@@ -32,7 +40,11 @@
         <div>더보기  &gt;</div>
       </router-link>
     </div>
-    <RecipePreviewCardContainerVue :cardData="myPosts"/>
+    <RecipePreviewCardContainerVue v-if="myRecipe.length" :cardData="myRecipe"/>
+    <div v-else class="non-card-view">
+      <img src="/images/homeview/non_myrecipe_icon.png" class="icon">
+      <div class="title">등록한 레시피가 없습니다.</div>
+    </div>
   </div>
 </template>
 
@@ -41,82 +53,13 @@ import SwipeContainer from '@/components/SwipeContentsContainer.vue';
 import RecipePreviewCardContainer from '@/components/RecipePreviewCardContainer.vue';
 import { mapActions, mapState } from 'pinia';
 import { useAuthStore } from '../stores/authStore';
+import { useRecipeStore } from '../stores/recipeStore.js';
+
 
 export default {
   data() {
     return {
-      recentViewedPosts: [
-        {
-          id: "eggsoysaucerice",
-          title: "간장계란밥",
-          discription: "누구나 만들 수 있는 간장 계란밥 레시피 대공개",
-          thumbnail: "/mockdata/eggsoysaucerice/image/step_05.png",
-        },
-        {
-          id: "thinoodle",
-          title: "까오팟 무쌉",
-          discription: "한국에서 즐기는 태국식 볶음면",
-          thumbnail: "/mockdata/eggsoysaucerice/image/step_05.png",
-        },
-        {
-          id: "toppokki",
-          title: "떡볶이",
-          discription: "집에서 간단하게 즐기는 떡볶이 레시피",
-          thumbnail: "/mockdata/eggsoysaucerice/image/step_05.png",
-        },
-        {
-          id: "toppokki",
-          title: "떡볶이2",
-          discription: "집에서 간단하게 즐기는 떡볶이 레시피",
-          thumbnail: "/mockdata/eggsoysaucerice/image/step_05.png",
-        },
-        {
-          id: "toppokki",
-          title: "떡볶이3",
-          discription: "집에서 간단하게 즐기는 떡볶이 레시피",
-          thumbnail: "/mockdata/eggsoysaucerice/image/step_05.png",
-        },
-      ],
-      bookmarkedPosts: [
-        {
-          id: "eggsoysaucerice",
-          title: "간장계란밥",
-          discription: "누구나 만들 수 있는 간장 계란밥 레시피 대공개",
-          thumbnail: "/mockdata/eggsoysaucerice/image/step_05.png",
-        },
-        {
-          id: "thinoodle",
-          title: "까오팟무쌉",
-          discription: "한국에서 즐기는 태국식 볶음면",
-          thumbnail: "/mockdata/eggsoysaucerice/image/step_05.png",
-        },
-        {
-          id: "toppokki",
-          title: "떡볶이",
-          discription: "집에서 간단하게 즐기는 떡볶이 레시피",
-          thumbnail: "/mockdata/eggsoysaucerice/image/step_05.png",
-        },
-      ],
-      myPosts: [
-        {
-          id: "eggsoysaucerice",
-          title: "간장계란밥",
-          discription: "누구나 만들 수 있는 간장 계란밥 레시피 대공개",
-          thumbnail: "/mockdata/eggsoysaucerice/image/step_05.png",
-        },
-        {
-          id: "thinoodle",
-          title: "까오팟무쌉",
-          discription: "한국에서 즐기는 태국식 볶음면",
-          thumbnail: "/mockdata/eggsoysaucerice/image/step_05.png",
-        },
-        {
-          id: "toppokki",
-          title: "떡볶이",
-          discription: "집에서 간단하게 즐기는 떡볶이 레시피",
-          thumbnail: "/mockdata/eggsoysaucerice/image/step_05.png",
-        },
-      ],
+      myRecipe: []
     }
   },
   components: {
@@ -125,18 +68,31 @@ export default {
   },
   computed: {
     ...mapState(useAuthStore, ['user']),
+    ...mapState(useRecipeStore, ['recipes', 'bookmarks', 'bookmarkedRecipes', 'recentlyViewedRecipes'])
   },
   methods: {
     ...mapActions(useAuthStore, ['logout']),
+    ...mapActions(useRecipeStore, ['toggleBookmark', 'deleteRecipe','loadRecipes', 'loadBookmarks', 'loadRecentlyViewed']),
     handleClickLogout() {
       this.logout();
       this.$router.push({ name: 'Login' }); // 로그아웃 후 로그인 화면으로 이동
     },
+    loadMyRecipe() {
+      this.myRecipe = JSON.parse(localStorage.getItem('recipes')).filter(item =>
+          item.user_id == JSON.parse(localStorage.getItem('user')).username
+        )
+    },
   },
+  created() {
+    this.loadMyRecipe();
+    this.loadRecipes();
+    this.loadBookmarks();
+    this.loadRecentlyViewed();
+  }
 }
 </script>
 
-<style>
+<style lang="scss">
 .top-bar-banner {
   margin-left: 30px;
   margin-right: 30px;
@@ -173,5 +129,40 @@ export default {
   font-size: 14px;
   color: #6D6767;
   text-decoration-line: none;
+}
+.non-swipe-view {
+  padding: 40px 0 40px 0;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  .icon {
+    margin: 0 auto;
+    width: 100px;
+    height: 110px;
+  }
+  .title {
+    width: 100%;
+    font-size: 20px;
+    color: #7C7C7C;
+    font-weight: 100;
+    text-align: center;
+  }
+}
+.non-card-view {
+  padding: 40px 0 40px 0;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  .icon {
+    width: 50px;
+    height: 50px;
+  }
+  .title {
+    font-size: 20px;
+    color: #7C7C7C;
+    font-weight: 100;
+  }
 }
 </style>

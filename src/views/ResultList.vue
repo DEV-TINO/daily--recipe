@@ -6,32 +6,26 @@
     <div></div>
   </div>
   <div class="margin-90px"></div>
-  <div v-if="displayedItems.length"><RecipeListItemVue v-for="(value, index) in displayedItems" :key="index" @click="handleClickGoToDetail(value.id)" :previewData="value"/></div>
+  <div v-if="displayedItems.length"><RecipeListItemVue v-for="(value, index) in displayedItems" :key="index" @click="handleClickGoToDetail(value.recipeId)" :previewData="value"/></div>
   <div v-else class="result-title">결과가 없습니다.</div>
   <div class="margin-90px"></div>
 </template>
 
 <script>
 import RecipeListItemVue from '@/components/RecipeListItem.vue'
-import axios from 'axios';
+import { useRecipeStore } from '../stores/recipeStore.js';
+import { mapActions, mapGetters } from 'pinia';
+
 export default {
-  mounted() {
-    axios.get('/mockdata/index.json')
-      .then(response => {
-        this.recipeList = response.data;
-      })
-      .catch(error => {
-        console.error("리스트를 가져오는데 실패했습니다.", error);
-      });
-  },
   data(){
     return {
       resultTitle: this.mode || '',
       searchQuery: this.query || '',
-      recipeList: []
+      recipeList: JSON.parse(localStorage.getItem('recipes'))
     }
   },
   methods: {
+    ...mapActions(useRecipeStore, ['viewRecipe']),
     handleClickgoToParent() {
       const currentPath = this.$route.path;
       // 현재 경로를 '/'로 분할하고 마지막 경로를 제거
@@ -47,6 +41,7 @@ export default {
     },
     handleClickGoToDetail(recipeName) {
       const detailPath = this.$route.path+'/detail/'+recipeName;
+      this.viewRecipe(recipeName);
       this.$router.push(detailPath);
     },
   },
@@ -64,11 +59,20 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(useRecipeStore, ['bookmarkedRecipes']),
     displayedItems() {
       if (this.mode === '검색결과'){
-        return this.recipeList.filter(item =>
+        return this.recipeList = JSON.parse(localStorage.getItem('recipes')).filter(item =>
           item.title.toLowerCase().includes(this.searchQuery.toLowerCase())
         );
+      }
+      if (this.mode === '등록한 레시피'){
+        return this.recipeList = JSON.parse(localStorage.getItem('recipes')).filter(item =>
+          item.user_id == JSON.parse(localStorage.getItem('user')).username
+        )
+      }
+      if (this.mode === '저장한 레시피'){
+        return this.recipeList = this.bookmarkedRecipes
       }
       return this.recipeList;
     }

@@ -6,10 +6,10 @@
     <div class="info-container">
       <div class="metadata">
         <div class="date">{{ previewData.created_at }}</div>
-        <div class="name">{{ previewData.username }}</div>
+        <div class="name">{{ previewData.user_id }}</div>
       </div>
       <div class="title">{{ previewData.title }}</div>
-      <div class="discription">{{ previewData.subtitle }}</div>
+      <div class="discription">{{ previewData.description }}</div>
     </div>
   </div>
 </template>

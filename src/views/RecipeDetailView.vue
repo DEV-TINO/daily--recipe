@@ -5,24 +5,44 @@
     <div></div>
 </div>
 <div class="full-recipe-container"><RecipeDetailVue :recipe="recipe"/></div>
+<div v-if="recipe.user_id == user.username" @click="handleClickDeleteRecipe(recipe.recipeId)">삭제 버튼</div>
+<div v-else @click="handleClickBookmarkRecipe(recipe.recipeId)">
+  <div v-if="bookmarked">북마크해제</div>
+  <div v-else>북마크하기</div>
+</div>
 </template>
 
 <script>
 import RecipeDetailVue from '@/components/RecipeDetail.vue'
-import axios from 'axios'
+import { useAuthStore } from '../stores/authStore.js'
+import { useRecipeStore } from '../stores/recipeStore.js'
+import { mapState, mapActions } from 'pinia'
+
 export default {
   mounted() {
     this.loadPost(this.$route.params.id.toString());
+    this.isBookmarked(this.$route.params.id.toString())
   },
   data() {
     return {
       recipe: {},
+      bookmarked: '',
     }
   },
   components: {
     RecipeDetailVue: RecipeDetailVue
   },
   methods: {
+    ...mapActions(useRecipeStore, ['deleteRecipe', 'toggleBookmark']),
+    handleClickDeleteRecipe(recipeName) {
+      console.log(recipeName)
+      this.deleteRecipe(recipeName);
+      this.$router.push('/home');
+    },
+    handleClickBookmarkRecipe(recipeName) {
+      this.toggleBookmark(recipeName);
+      this.isBookmarked(recipeName);
+    },
     handleClickGoToParent() {
       const currentPath = this.$route.path;
       // 현재 경로를 '/'로 분할하고 마지막 경로를 제거
@@ -35,15 +55,23 @@ export default {
         this.$router.push('/home');
       }
     },
+    isBookmarked(recipeName) {
+      const bookmarkedList = JSON.parse(localStorage.getItem('bookmarks'));
+      this.bookmarked = bookmarkedList.includes(recipeName)
+    },
     async loadPost(recipeName) {
       try {
-        const requestUrl = "/mockdata/"+recipeName+"/recipe.json";
-        const response = await axios.get(requestUrl);
-        this.recipe = response.data;
+        const responseArray = JSON.parse(localStorage.getItem('recipes'));
+        const response = responseArray.find(recipe => 
+        recipe.recipeId === recipeName)
+        this.recipe = response
       } catch (error) {
         console.error("게시물을 불러오는 중 오류가 발생했습니다.", error);
       }
     }
+  },
+  computed: {
+    ...mapState(useAuthStore, ['user']),
   }
 }
 </script>

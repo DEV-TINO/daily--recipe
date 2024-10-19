@@ -5,7 +5,7 @@
     </div>
     <div class="contents">
       <div class="title">{{ contentData.title }}</div>
-      <div class="discription">{{ contentData.discription }}</div>
+      <div class="discription">{{ contentData.description }}</div>
     </div>
   </div>
 </template>

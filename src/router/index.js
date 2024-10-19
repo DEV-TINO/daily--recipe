@@ -82,14 +82,9 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  console.log('Navigating to:', to.name); // 현재 이동하려는 라우트 이름 출력
   const authStore = useAuthStore();
   authStore.checkAuth();  // 로그인 상태 확인
-
-  console.log('isAuthenticated:', authStore.isAuthenticated); // 상태 확인
-
   if (to.meta.requiresAuth && !authStore.isAuthenticated) {
-    console.log('Redirecting to Login'); // 리디렉션 확인
     next({ name: 'Login' });
   } else {
     next(); // 그렇지 않으면 그대로 진행

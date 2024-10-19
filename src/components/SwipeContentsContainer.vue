@@ -1,8 +1,8 @@
 <template>
-  <div class="swipe-view-container" v-for="(value, index) in recentViewedPosts" :key="index" @click="handleClickGoToDetail(value.id)">
+  <div class="swipe-view-container" v-for="(value, index) in recentViewedPosts" :key="index" @click="handleClickGoToDetail(value.recipeId)">
     <SwipeContentsVue v-if="page == index" :contentData="value" />
   </div>
-  <div class="swipe-controller">
+  <div class="swipe-controller" v-if="recentViewedPosts.length">
     <div @click="handleClickLeftArrow" class="left">&lt;</div>
     <div @click="handleClickRightArrow" class="right">&gt;</div>
   </div>
@@ -16,6 +16,9 @@
 
 <script>
 import SwipeContentsVue from './SwipeContents.vue'
+import { useRecipeStore } from '../stores/recipeStore.js';
+import { mapActions } from 'pinia';
+
 export default {
   data() {
     return {
@@ -26,6 +29,7 @@ export default {
     SwipeContentsVue: SwipeContentsVue,
   },
   methods: {
+    ...mapActions(useRecipeStore, ['viewRecipe']),
     handleClickLeftArrow() {
       if (this.page == 0) {
         this.page = this.recentViewedPosts.length - 1
@@ -42,6 +46,7 @@ export default {
     },
     handleClickGoToDetail(recipeId) {
       const requestUrl = '/detail/'+recipeId
+      this.viewRecipe(recipeId)
       this.$router.push(requestUrl)
     },
     handleClickIndicator(index) {

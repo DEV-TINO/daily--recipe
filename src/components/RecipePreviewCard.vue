@@ -4,7 +4,7 @@
       <img :src="previewContent.thumbnail" class="thumbnail">
     </div>
     <div class="title">{{ previewContent.title }}</div>
-    <div class="discription">{{ previewContent.discription }}</div>
+    <div class="discription">{{ previewContent.description }}</div>
   </div>
 </template>
 

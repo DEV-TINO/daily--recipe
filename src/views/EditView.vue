@@ -126,11 +126,11 @@
 
     <!-- 미리 보기 -->
     <FullRecipeContainerVue v-if="index == 5" :recipe="recipe"/>
-    <div v-if="index == 5" class="edit-create-post-button">
+    <div v-if="index == 5" class="edit-create-post-button" @click="handleClickCreateRecipe">
       게시물 생성하기
     </div>
   </div>
-  <div style="margin-bottom: 110px;"></div>
+  <div style="margin-bottom: 50px;"></div>
 
   <div class="edit-controler">
     <div v-if="index !== 0" class="edit-controler-button-left" @click="handleClickPrevStep()">
@@ -145,6 +145,10 @@
 
 <script>
 import FullRecipeContainerVue from '@/components/RecipeDetail.vue';
+import { useRecipeStore } from '../stores/recipeStore.js'
+import { useAuthStore } from '../stores/authStore.js';
+import { mapActions, mapState } from 'pinia';
+
 export default {
   components: {
     FullRecipeContainerVue: FullRecipeContainerVue
@@ -153,8 +157,9 @@ export default {
     return {
       //레시피 object화
       recipe: {
-        recipeId: "",
-        user_id: 'shushu',
+        recipeId: '',
+        user_id: '',
+        created_at: '',
         thumbnail: '',
         title: '',
         description: '',
@@ -171,7 +176,6 @@ export default {
             description: '',
           },
         ],
-        created_at: '2024-09-25',
       },
       //procedure 넘어갈 때 제어할 index변수.
       index: 0,
@@ -222,6 +226,8 @@ export default {
     }
   },
   methods: {
+    ...mapActions(useRecipeStore, ['addRecipe']),
+
     handleClickNextStep() {
       switch (this.index) {
         case 0: 
@@ -253,6 +259,9 @@ export default {
         case 4: 
         if (this.recipe.thumbnail != 0) {
           this.index++
+          this.recipe.created_at = this.getToday();
+          this.recipe.user_id = JSON.parse(localStorage.getItem('user')).username
+          this.recipe.recipeId = self.crypto.randomUUID().toString();
         }
         break;
       }
@@ -305,7 +314,24 @@ export default {
     },
     handleClickRemoveThumbnail() {
       this.recipe.thumbnail = '';
+    },
+    handleClickCreateRecipe() {
+      this.addRecipe(this.recipe)
+      console.log(this.recipe.user_id)
+      console.log(this.recipe.recipeId)
+      console.log(this.recipe.created_at)
+      this.$router.push('/home')
+    },
+    getToday() {
+      var date = new Date();
+      var year = date.getFullYear();
+      var month = ("0" + (1 + date.getMonth())).slice(-2);
+      var day = ("0" + date.getDate()).slice(-2);
+      return year + "-" + month + "-" + day;
     }
+  },
+  computed: {
+    ...mapState(useAuthStore, ['user']),
   },
 }
 </script>
@@ -509,13 +535,13 @@ export default {
 .edit-button-add {
   padding: 5px 20px 5px 20px;
   border-radius: 10px;
-  border: solid 1.5px orange;
   background: white;
   font-size: 18px;
   font-weight: bold;
   position: absolute;
   margin-top: 10px;
   left: 50%;
+  border: solid 1.5px orange;
   color:orange;
   transform: translate(-50%, 0%);
 }
