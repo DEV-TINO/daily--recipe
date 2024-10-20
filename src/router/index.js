@@ -36,6 +36,11 @@ const routes = [
     meta: {requiresAuth: true},
   },
   {
+    path: '/edit/:id',
+    component: EditView,
+    meta: {requiresAuth: true},
+  },
+  {
     path: '/search',
     name: 'search',
     component: SearchView,

@@ -125,12 +125,15 @@
     </div>
 
     <!-- 미리 보기 -->
-    <FullRecipeContainerVue v-if="index == 5" :recipe="recipe"/>
-    <div v-if="index == 5" class="edit-create-post-button" @click="handleClickCreateRecipe">
-      게시물 생성하기
+    <div v-if="index == 5">
+      <FullRecipeContainerVue :recipe="recipe"/>
+      <div v-if="this.$route.params.id" class="edit-create-post-button" @click="handleClickEditRecipe">게시물 수정하기</div>
+      <div v-else class="edit-create-post-button" @click="handleClickCreateRecipe">
+        게시물 생성하기
+      </div>
     </div>
   </div>
-  <div style="margin-bottom: 50px;"></div>
+  <div style="margin-bottom: 30px;"></div>
 
   <div class="edit-controler">
     <div v-if="index !== 0" class="edit-controler-button-left" @click="handleClickPrevStep()">
@@ -150,6 +153,9 @@ import { useAuthStore } from '../stores/authStore.js';
 import { mapActions, mapState } from 'pinia';
 
 export default {
+  mounted() {
+    this.loadEditData(this.$route.params.id)
+  },
   components: {
     FullRecipeContainerVue: FullRecipeContainerVue
   },
@@ -226,7 +232,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(useRecipeStore, ['addRecipe']),
+    ...mapActions(useRecipeStore, ['addRecipe', 'deleteRecipe']),
 
     handleClickNextStep() {
       switch (this.index) {
@@ -261,7 +267,9 @@ export default {
           this.index++
           this.recipe.created_at = this.getToday();
           this.recipe.user_id = JSON.parse(localStorage.getItem('user')).username
-          this.recipe.recipeId = self.crypto.randomUUID().toString();
+          if(!this.recipe.recipeId){
+            this.recipe.recipeId = self.crypto.randomUUID().toString();
+          }
         }
         break;
       }
@@ -317,9 +325,11 @@ export default {
     },
     handleClickCreateRecipe() {
       this.addRecipe(this.recipe)
-      console.log(this.recipe.user_id)
-      console.log(this.recipe.recipeId)
-      console.log(this.recipe.created_at)
+      this.$router.push('/home')
+    },
+    handleClickEditRecipe() {
+      this.deleteRecipe(this.recipe.recipeId)
+      this.addRecipe(this.recipe)
       this.$router.push('/home')
     },
     getToday() {
@@ -328,6 +338,16 @@ export default {
       var month = ("0" + (1 + date.getMonth())).slice(-2);
       var day = ("0" + date.getDate()).slice(-2);
       return year + "-" + month + "-" + day;
+    },
+    loadEditData(recipeName) {
+      try {
+        const responseArray = JSON.parse(localStorage.getItem('recipes'));
+        const response = responseArray.find(recipe => 
+        recipe.recipeId === recipeName)
+        this.recipe = response
+      } catch (error) {
+        console.error("게시물을 불러오는 중 오류가 발생했습니다.", error);
+      }
     }
   },
   computed: {
