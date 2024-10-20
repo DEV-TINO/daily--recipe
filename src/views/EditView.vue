@@ -340,13 +340,15 @@ export default {
       return year + "-" + month + "-" + day;
     },
     loadEditData(recipeName) {
-      try {
-        const responseArray = JSON.parse(localStorage.getItem('recipes'));
-        const response = responseArray.find(recipe => 
-        recipe.recipeId === recipeName)
-        this.recipe = response
-      } catch (error) {
-        console.error("게시물을 불러오는 중 오류가 발생했습니다.", error);
+      if (this.$route.params.id){
+        try {
+          const responseArray = JSON.parse(localStorage.getItem('recipes'));
+          const response = responseArray.find(recipe => 
+          recipe.recipeId === recipeName)
+          this.recipe = response
+        } catch (error) {
+          console.error("게시물을 불러오는 중 오류가 발생했습니다.", error);
+        }
       }
     }
   },
