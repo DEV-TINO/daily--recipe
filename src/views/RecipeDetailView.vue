@@ -4,11 +4,14 @@
     <div class="result-title">레시피</div>
     <div></div>
 </div>
-<div class="full-recipe-container"><RecipeDetailVue :recipe="recipe"/></div>
-<div v-if="recipe.user_id == user.username" @click="handleClickDeleteRecipe(recipe.recipeId)">삭제 버튼</div>
-<div v-else @click="handleClickBookmarkRecipe(recipe.recipeId)">
-  <div v-if="bookmarked">북마크해제</div>
-  <div v-else>북마크하기</div>
+<div class="full-recipe-container">
+  <img v-if="recipe.user_id == user.username" @click="handleClickDeleteRecipe(recipe.recipeId)" class="icon" src="/images/detailview/delete_icon.png">
+  <div v-else @click="handleClickBookmarkRecipe(recipe.recipeId)">
+    <img v-if="bookmarked" class="icon" src="/images/detailview/bookmark_icon.png">
+    <img v-else class="icon" src="/images/detailview/non_bookmark_icon.png">
+  </div>
+  <RecipeDetailVue :recipe="recipe"/>
+  <div v-if="recipe.user_id == user.username" @click="handleClickEditRecipe(recipe.recipeId)" class="edit-create-post-button">레시피 수정하기</div>
 </div>
 </template>
 
@@ -55,11 +58,15 @@ export default {
         this.$router.push('/home');
       }
     },
+    handleClickEditRecipe(recipeName) {
+      const requestUrl = '/edit/'+recipeName
+      this.$router.push(requestUrl);
+    },
     isBookmarked(recipeName) {
       const bookmarkedList = JSON.parse(localStorage.getItem('bookmarks'));
       this.bookmarked = bookmarkedList.includes(recipeName)
     },
-    async loadPost(recipeName) {
+    loadPost(recipeName) {
       try {
         const responseArray = JSON.parse(localStorage.getItem('recipes'));
         const response = responseArray.find(recipe => 
@@ -76,11 +83,18 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .full-recipe-container {
   box-sizing: border-box;
   margin-top: 70px;
   margin-bottom:70px;
   padding: 30px;
+  .icon {
+    height: 30px;
+    widows: 30px;
+    position: absolute;
+    right: 45px;
+    top: 110px;
+  }
 }
 </style>
