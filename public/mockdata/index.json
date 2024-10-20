@@ -1,0 +1,42 @@
+[
+  {
+    "id": "eggsoysaucerice",
+    "title": "간장계란밥",
+    "subtitle": "누구나 쉽게 만들 수 있는 간장계란밥 레시피 대공개",
+    "thumbnail": "/mockdata/eggsoysaucerice/image/step_05.png",
+    "created_at": "2024-09-25",
+    "username": "shushu"
+  },
+  {
+    "id": "thinoodle",
+    "title": "까오팟무쌉",
+    "subtitle": "한국에서도 즐기는 태국식 볶음면 까오팟무쌉",
+    "thumbnail": "/mockdata/eggsoysaucerice/image/step_05.png",
+    "created_at": "2024-09-25",
+    "username": "shushu"
+  },
+  {
+    "id": "toppokki",
+    "title": "떡볶이",
+    "subtitle": "포장마차 그맛 그대로 집에서 즐기는 떡볶이",
+    "thumbnail": "/mockdata/eggsoysaucerice/image/step_05.png",
+    "created_at": "2024-09-25",
+    "username": "shushu"
+  },
+  {
+    "id": "eggsoysaucerice",
+    "title": "간장계란밥",
+    "subtitle": "누구나 쉽게 만들 수 있는 간장계란밥 레시피 대공개",
+    "thumbnail": "/mockdata/eggsoysaucerice/image/step_05.png",
+    "created_at": "2024-09-25",
+    "username": "shushu"
+  },
+  {
+    "id": "eggsoysaucerice",
+    "title": "간장계란밥",
+    "subtitle": "누구나 쉽게 만들 수 있는 간장계란밥 레시피 대공개",
+    "thumbnail": "/mockdata/eggsoysaucerice/image/step_05.png",
+    "created_at": "2024-09-25",
+    "username": "shushu"
+  }
+]

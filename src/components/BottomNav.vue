@@ -38,7 +38,7 @@ export default {
         if (menu === "edit") {
           this.$router.push("/edit");
         } else if (menu === "home") {
-          this.$router.push("/");
+          this.$router.push("/home");
         } else if (menu === "search") {
           this.$router.push("/search");
         }
