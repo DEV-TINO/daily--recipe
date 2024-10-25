@@ -61,7 +61,7 @@
     <!-- 레시피 넣기 -->
     <div v-if="index == 3">
       <div v-for="(item, count_instruction) in recipe.instruction" :key="count_instruction">
-        <label :for="'image-input-'+count_instruction">
+        <label :for="'image-input-' + count_instruction">
           <div class="edit-image-input" v-if="item.imageUrl == 0">
             <img src="/images/43icon.png" class="edit-image-input-icon">
             <div>Upload Image</div>
@@ -69,7 +69,7 @@
         </label>
         <input 
           class="edit-image-input-button" 
-          :id="'image-input-'+count_instruction" 
+          :id="'image-input-' + count_instruction" 
           @change="handleUploadFile(count_instruction)" 
           type="file"
           accept="image/*"
@@ -127,8 +127,8 @@
     <!-- 미리 보기 -->
     <div v-if="index == 5">
       <FullRecipeContainerVue :recipe="recipe"/>
-      <div v-if="this.$route.params.id" class="edit-create-post-button" @click="handleClickEditRecipe">게시물 수정하기</div>
-      <div v-else class="edit-create-post-button" @click="handleClickCreateRecipe">
+      <div v-if="this.$route.params.id" class="edit-create-post-button" @click="handleClickEditRecipe()">게시물 수정하기</div>
+      <div v-else class="edit-create-post-button" @click="handleClickCreateRecipe()">
         게시물 생성하기
       </div>
     </div>

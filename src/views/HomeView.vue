@@ -5,7 +5,7 @@
     </div>
     <div class="user-info" v-if="user">
       <div class="user-name" >{{ user.username }}</div>
-      <button class="logout-button" @click="handleClickLogout">로그아웃</button>
+      <button class="logout-button" @click="handleClickLogout()">로그아웃</button>
     </div>
     <div v-else>로그인해 주세요<router-link :to="{ name: 'Login' }">로그인</router-link></div>
   </div>
@@ -22,9 +22,9 @@
   <div class="home-main-container">
     <div class="card-container-title">
       <div class="main-title">저장한 레시피</div>
-      <router-link to="/bookmarked" class="more">
-        <div>더보기  &gt;</div>
-      </router-link>
+        <div class="more" @click="handleClickBookmarkMore()">
+          더보기  &gt;
+        </div>
     </div>
     <RecipePreviewCardContainerVue v-if="bookmarkedRecipes.length" :cardData="bookmarkedRecipes"/>
     <div v-else class="non-card-view">
@@ -36,9 +36,9 @@
   <div class="home-main-container">
     <div class="card-container-title">
       <div class="main-title">등록한 레시피</div> 
-      <router-link to="/posted" class="more">
-        <div>더보기  &gt;</div>
-      </router-link>
+        <div class="more" @click="handleClickPostedMore()">
+          더보기  &gt;
+        </div>
     </div>
     <RecipePreviewCardContainerVue v-if="myRecipe.length" :cardData="myRecipe"/>
     <div v-else class="non-card-view">
@@ -76,6 +76,12 @@ export default {
     handleClickLogout() {
       this.logout();
       this.$router.push({ name: 'Login' }); // 로그아웃 후 로그인 화면으로 이동
+    },
+    handleClickBookmarkMore() {
+      this.$router.push('/bookmarked')
+    },
+    handleClickPostedMore() {
+      this.$router.push('/posted')
     },
     loadMyRecipe() {
       this.myRecipe = JSON.parse(localStorage.getItem('recipes')).filter(item =>
