@@ -106,7 +106,7 @@
 
     <!-- 썸네일 넣기 -->
     <div v-if="index == 4">
-      <label :for="'input-thumbnail'"  v-if="recipe.thumbnail == 0">
+      <label for="input-thumbnail"  v-if="recipe.thumbnail == 0">
         <div class="edit-thumbnail-input">
           <img src="/images/11icon.png" class="edit-image-input-icon">
           <div>Upload Image</div>
@@ -114,7 +114,7 @@
       </label>
       <input 
         class="edit-image-input-button" 
-        :id="'input-thumbnail'" 
+        id="input-thumbnail" 
         @change="handleUploadThumbnail()" 
         type="file"
         accept="image/*"
