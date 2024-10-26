@@ -26,7 +26,7 @@
         <div>더보기  &gt;</div>
       </router-link>
     </div>
-    <RecipePreviewCardContainerVue v-if="bookmarkedRecipes.length" :cardData="bookmarkedRecipes.slice(bookmarkedRecipes.length - 3, bookmarkedRecipes.legnth)"/>
+    <RecipePreviewCardContainerVue v-if="bookmarkedRecipes.length" :cardData="bookmarkedRecipes.slice(this.listIndex(bookmarkedRecipes.length - 3), bookmarkedRecipes.legnth)"/>
     <div v-else class="non-card-view">
       <img src="/images/homeview/non_bookmark_icon.png" class="icon">
       <div class="title">저장한 레시피가 없습니다.</div>
@@ -40,7 +40,7 @@
         <div>더보기  &gt;</div>
       </router-link>
     </div>
-    <RecipePreviewCardContainerVue v-if="myRecipe.length" :cardData="myRecipe.slice(myRecipe.length - 3, myRecipe.length)"/>
+    <RecipePreviewCardContainerVue v-if="myRecipe.length" :cardData="myRecipe.slice(this.listIndex(myRecipe.length - 3), myRecipe.length)"/>
     <div v-else class="non-card-view">
       <img src="/images/homeview/non_myrecipe_icon.png" class="icon">
       <div class="title">등록한 레시피가 없습니다.</div>
@@ -82,6 +82,13 @@ export default {
           item.user_id == JSON.parse(localStorage.getItem('user')).username
         )
     },
+    listIndex(index) {
+      if(index < 0) {
+        return 0;
+      } else {
+        return index;
+      }
+    }
   },
   created() {
     this.loadMyRecipe();
