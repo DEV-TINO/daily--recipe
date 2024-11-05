@@ -1,5 +1,5 @@
 <template>
-  <div class="intro-viewer" @click="handleClickTouchToStart">
+  <div class="intro-viewer" @click="handleClickTouchToStart()">
     <div class="intro-container">
       <img class="icon" src="/images/loginicon.png">
       <div class="title">touchtostart</div>

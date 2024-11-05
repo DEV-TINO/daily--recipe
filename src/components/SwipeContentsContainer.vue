@@ -3,8 +3,8 @@
     <SwipeContentsVue v-if="page == index" :contentData="value" />
   </div>
   <div class="swipe-controller" v-if="recentViewedPosts.length">
-    <div @click="handleClickLeftArrow" class="left">&lt;</div>
-    <div @click="handleClickRightArrow" class="right">&gt;</div>
+    <div @click="handleClickLeftArrow()" class="left">&lt;</div>
+    <div @click="handleClickRightArrow()" class="right">&gt;</div>
   </div>
   <div class="swipe-indicator">
     <div v-for="index in recentViewedPosts.length" :key="index">

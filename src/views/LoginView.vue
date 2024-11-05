@@ -6,7 +6,7 @@
       <input v-model="username" placeholder="사용자 이름" class="text-input"/>
       <div class="title">비밀번호</div>
       <input v-model="password" type="password" placeholder="비밀번호" class="text-input"/>
-      <div @click="handleClickLogin" class="login-button">로그인</div>
+      <div @click="handleClickLogin()" class="login-button">로그인</div>
     </div>
   </div>
 </template>
